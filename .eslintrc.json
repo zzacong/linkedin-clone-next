@@ -1,3 +1,7 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["plugin:prettier/recommended", "next/core-web-vitals"],
+  "plugins": ["prettier"],
+  "rules": {
+    "import/no-anonymous-default-export": "off"
+  }
 }

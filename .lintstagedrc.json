@@ -1,0 +1,4 @@
+{
+  "*.{js,jsx,ts,tsx}": "yarn lint:staged",
+  "*.{json,scss}": "yarn format:staged"
+}
