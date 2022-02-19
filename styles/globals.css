@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .mui-icon {
+    @apply inline-block h-6 w-6;
+  }
+}
