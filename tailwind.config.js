@@ -6,7 +6,11 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        dblue: '#1d2226',
+      },
+    },
   },
   plugins: [require('@tailwindcss/forms')],
 }

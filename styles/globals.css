@@ -16,4 +16,12 @@
   .intent {
     @apply flex w-full cursor-pointer items-center justify-between rounded-lg bg-white p-4 text-black hover:shadow-xl md:max-w-md xl:mx-0;
   }
+
+  .sidebar-btn {
+    @apply cursor-pointer px-3 hover:bg-black/10 dark:hover:bg-gray-100/10;
+  }
+
+  .sidebar-section {
+    @apply border-t-[0.5px] border-gray-300;
+  }
 }

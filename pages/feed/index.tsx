@@ -14,19 +14,19 @@ export default function Feed() {
       <Header />
 
       <div className="px-4">
-        <div className="mx-auto my-6 grid max-w-xl grid-cols-12 gap-5 md:max-w-3xl lg:max-w-6xl">
+        <div className="mx-auto my-6 grid max-w-xl grid-cols-1 gap-5 md:max-w-3xl md:grid-cols-[7fr_17fr] lg:max-w-6xl lg:grid-cols-[5fr_12fr_7fr]">
           {/* Sidebar */}
-          <div className="col-span-12 h-48 bg-red-100 md:col-span-4 lg:col-span-2">
+          <div className="">
             <Sidebar />
           </div>
 
           {/* Feed */}
-          <main className="col-span-12 h-48 bg-red-100 md:col-span-8 lg:col-span-6">
+          <main className="">
             <Posts />
           </main>
 
           {/* Widgets (aside) */}
-          <aside className="hidden h-48 bg-red-100 lg:col-span-4 lg:block">
+          <aside className="hidden lg:block">
             <Widgets />
           </aside>
         </div>
@@ -35,6 +35,6 @@ export default function Feed() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  return { props: {} }
-}
+// export const getServerSideProps: GetServerSideProps = async context => {
+//   return { props: {} }
+// }

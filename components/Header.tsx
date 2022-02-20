@@ -26,7 +26,7 @@ export default function Header() {
   console.log(theme, resolvedTheme)
 
   return (
-    <header className="sticky top-0 z-40 bg-white px-4 focus-within:shadow dark:bg-[#1d2226]">
+    <header className="sticky top-0 z-40 bg-white px-4 focus-within:shadow dark:bg-dblue">
       <nav className="mx-auto flex max-w-6xl items-center justify-between py-1">
         {/* Left */}
         <div className="flex w-full max-w-xs items-center space-x-2">

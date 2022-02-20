@@ -1,10 +1,14 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
+import { SessionProvider } from 'next-auth/react'
 
 import '$styles/globals.css'
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
     <>
       <Head>
@@ -16,10 +20,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ThemeProvider attribute="class">
-        {/* <ThemeProvider> */}
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <SessionProvider session={session}>
+        <ThemeProvider attribute="class">
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </SessionProvider>
     </>
   )
 }
