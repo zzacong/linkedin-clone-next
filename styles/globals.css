@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply bg-gray-100;
+  }
+}
+
 @layer components {
   .mui-icon {
     @apply inline-block h-6 w-6;
+  }
+
+  .intent {
+    @apply flex w-full cursor-pointer items-center justify-between rounded-lg bg-white p-4 text-black hover:shadow-xl md:max-w-md xl:mx-0;
   }
 }
