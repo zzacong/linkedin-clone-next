@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 import {
   MdExplore,
   MdGroup,
@@ -14,27 +16,18 @@ import hero_svg from '$public/hero.svg'
 
 export default function Home() {
   return (
-    <div className="">
+    <div>
       <Head>
         <title>LinkedIn: Log In or Sign Up | Next</title>
-        <meta
-          name="description"
-          content="A LinkedIn clone built with Next.js"
-        />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <header>
         <nav className="mx-auto flex max-w-6xl items-center justify-between py-4 px-4">
-          <div className="h-10 w-36">
-            <Image
-              src={linkedin_logo}
-              alt="LinkedIn logo"
-              width={144}
-              height={40}
-              objectFit="contain"
-            />
-          </div>
+          <Link href="/" passHref>
+            <a className="block h-[21px] w-[84px] lg:h-[34px] lg:w-[135px]">
+              <Image src={linkedin_logo} alt="LinkedIn logo" />
+            </a>
+          </Link>
 
           <div className="flex items-center divide-gray-300 sm:divide-x">
             <div className="hidden space-x-8 pr-4 sm:flex">
@@ -47,7 +40,10 @@ export default function Home() {
               <HeaderLink Icon={MdBusinessCenter}>Jobs</HeaderLink>
             </div>
             <div className="pl-4">
-              <button className="rounded-full border border-blue-700 px-5 py-1.5 font-semibold text-blue-700 transition-all hover:border-2">
+              <button
+                onClick={() => signIn()}
+                className="rounded-full border border-blue-700 px-5 py-1.5 font-semibold text-blue-700 transition-all hover:border-2"
+              >
                 Sign in
               </button>
             </div>
