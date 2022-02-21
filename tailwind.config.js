@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         dblue: '#1d2226',
+        lstone: '#f3f2ef',
       },
     },
   },

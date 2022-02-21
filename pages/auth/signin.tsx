@@ -9,49 +9,72 @@ import google_logo from '$public/Google_logo.svg'
 
 export default function SignIn({ providers }: PageProps) {
   return (
-    <div className="t-primary">
+    <div className="t-primary flex min-h-screen flex-col bg-lstone">
       <Head>
         <title>LinkedIn Login, Sign In | Next</title>
       </Head>
 
-      <header>
+      <header className="">
         <div className="mx-auto flex pl-14 pt-8">
           <Link href="/" passHref>
-            <a className="block h-[28px] w-[112px]">
-              <Image src={linkedin_logo} alt="LinkedIn logo" />
+            <a className="block">
+              <Image
+                src={linkedin_logo}
+                alt="LinkedIn logo"
+                height={34}
+                width={135}
+              />
             </a>
           </Link>
         </div>
       </header>
 
-      <main className="">
-        <div className="mx-auto flex h-[467px] w-[400px] flex-col rounded-lg bg-white p-6 shadow-lg">
-          <header>
-            <h1 className="pb-1 text-3xl font-semibold leading-[1.25]">
-              Sign in
-            </h1>
-            <p className="text-sm">Stay updated on your professional world</p>
-          </header>
-
-          <div className="flex flex-1 flex-col items-stretch justify-center space-y-4 pt-8">
-            {Object.values(providers).map(provider => (
+      <main className="mx-auto grid min-h-screen w-full max-w-6xl flex-grow place-items-center">
+        <div className="flex flex-col items-center">
+          <h1 className="p-6 text-3xl font-semibold leading-[1.25]">
+            Make the most of your professional life
+          </h1>
+          <div className="flex h-[224px] w-[432px] max-w-xl flex-col rounded-lg bg-white p-6 pt-10 text-center shadow-lg">
+            <div className="flex flex-1 flex-col items-stretch justify-center space-y-5">
               <button
-                key={provider.name}
-                onClick={() => signIn(provider.id, { callbackUrl: '/feed' })}
-                className="flex h-[52px] items-center justify-center rounded-full bg-white px-6 shadow-sm outline outline-1 outline-gray-500 hover:bg-gray-100 hover:outline-2 focus:bg-gray-100 focus:outline-2"
+                onClick={() => alert('Not implemented')}
+                className="flex h-[52px] items-center justify-center rounded-full bg-[#0a66c2] px-6 shadow-sm hover:bg-[#004182] hover:outline-2 focus:bg-[#004182]"
               >
-                <Image
-                  src={google_logo}
-                  alt="Google logo"
-                  width={24}
-                  height={24}
-                />
-                <span className="t-secondary ml-2 text-base font-semibold">
-                  Sign in with Google
+                <span className="t-white text-base font-semibold">
+                  Continue with email
                 </span>
               </button>
-            ))}
+              {Object.values(providers).map(provider => (
+                <button
+                  key={provider.name}
+                  onClick={() => signIn(provider.id, { callbackUrl: '/feed' })}
+                  className="flex h-[52px] items-center justify-center rounded-full bg-white px-6 shadow-sm outline outline-1 outline-gray-500 hover:bg-gray-100 hover:outline-2 focus:bg-gray-100 focus:outline-2"
+                >
+                  <Image
+                    src={google_logo}
+                    alt="Google logo"
+                    width={24}
+                    height={24}
+                  />
+                  <span className="t-secondary ml-2 text-base font-semibold">
+                    Continue with {provider.name}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <p className="pt-4">
+              Already on LinkedIn?{' '}
+              <a href="#" className="t-link font-semibold">
+                Sign in
+              </a>
+            </p>
           </div>
+          <p className="m-6 pt-4 text-xs">
+            Looking to create a page for a business?{' '}
+            <a href="#" className="t-link font-semibold">
+              Get help
+            </a>
+          </p>
         </div>
       </main>
     </div>
