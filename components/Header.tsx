@@ -3,7 +3,6 @@ import Image from 'next/image'
 import clsx from 'clsx'
 import { useTheme } from 'next-themes'
 import { motion } from 'framer-motion'
-import { useSession } from 'next-auth/react'
 import {
   MdApps,
   MdBusinessCenter,
@@ -19,14 +18,13 @@ import linkedin_icon from '$public/linkedin_icon.png'
 import linkedin_icon_white from '$public/linkedin_icon_white.png'
 
 export default function Header() {
-  const { data: session } = useSession()
   const [mounted, setMounted] = useState(false)
   const { setTheme, resolvedTheme } = useTheme()
 
   useEffect(() => setMounted(true), [])
 
   return (
-    <header className="t-primary sticky top-0 z-40 bg-white px-4 focus-within:shadow dark:bg-dblue">
+    <header className="t-primary sticky top-0 z-10 bg-white px-4 focus-within:shadow dark:bg-dblue">
       <nav className="mx-auto flex max-w-6xl items-center justify-between py-1">
         {/* Left */}
         <div className="flex w-full max-w-xs items-center space-x-2">

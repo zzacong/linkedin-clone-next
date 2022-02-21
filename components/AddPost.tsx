@@ -1,4 +1,5 @@
-import Avatar from '$components/Avatar'
+import { useCallback } from 'react'
+import { useSetRecoilState } from 'recoil'
 import { motion } from 'framer-motion'
 import {
   MdArticle,
@@ -7,7 +8,18 @@ import {
   MdVideocam,
 } from 'react-icons/md'
 
+import Avatar from '$components/Avatar'
+import { modalState, modalTypeState } from '$lib/atoms'
+
 export default function AddPost() {
+  const setModalOpen = useSetRecoilState(modalState)
+  const setModalType = useSetRecoilState(modalTypeState)
+
+  const openModal = useCallback(() => {
+    setModalOpen(true)
+    setModalType('dropIn')
+  }, [setModalOpen, setModalType])
+
   return (
     <div className="feed-card t-secondary">
       <div className="flex items-center p-4 pt-2">
@@ -15,6 +27,7 @@ export default function AddPost() {
           <Avatar h={48} w={48} />
         </a>
         <motion.button
+          onClick={openModal}
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
           className="card-btn my-1 flex h-12 flex-grow items-center rounded-full border border-black/30 py-2.5 px-4 hover:border-none dark:border-gray-500"
