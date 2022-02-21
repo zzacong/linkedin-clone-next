@@ -1,17 +1,24 @@
 import Image from 'next/image'
-import premium_icon from '$public/premium.svg'
+import { signOut, useSession } from 'next-auth/react'
 import { MdAdd, MdBookmark } from 'react-icons/md'
 
+import premium_icon from '$public/premium.svg'
+
 export default function Sidebar() {
+  const { data: session } = useSession()
+
   return (
     <div className="space-y-2">
       {/* First card */}
       <section className="sidebar-card text-center">
         <div className="-mr-3 -ml-3 h-14 min-w-full bg-[url('/sidebar_bg.svg')] bg-cover bg-center"></div>
 
-        <button className="-mt-9 cursor-pointer touch-manipulation">
+        <button
+          onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+          className="-mt-9 cursor-pointer touch-manipulation"
+        >
           <Image
-            src="https://lh3.googleusercontent.com/pKkYlwlR7NbnX0BVDLNw1p-ktuWEVZUAeKQAh07gN6-MmxqgrO4hEHQCXIFposu71zanaeim1qVnGG5T1-cHB60J5k_XGh21WfJO"
+            src={session?.user?.image ?? ''}
             alt="Profile picture"
             width={64}
             height={64}
@@ -22,10 +29,10 @@ export default function Sidebar() {
         <div className="py-4 px-4">
           <a href="#" className="block">
             <h3 className="cursor-pointer font-semibold decoration-purple-700 underline-offset-1 hover:underline">
-              Elon Musk
+              {session?.user?.name}
             </h3>
           </a>
-          <p className="t-secondary text-sm">elonmusk@gmail.com</p>
+          <p className="t-secondary text-sm">{session?.user?.email}</p>
         </div>
 
         <div className="hidden text-left text-sm md:block">

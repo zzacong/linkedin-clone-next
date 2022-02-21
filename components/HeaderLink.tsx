@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import type { Session } from 'next-auth'
+import Image from 'next/image'
 import clsx from 'clsx'
 
 export default function HeaderLink({
@@ -8,6 +10,7 @@ export default function HeaderLink({
   feed = false,
   active = false,
   hidden = false,
+  user,
 }: Props) {
   return (
     <div
@@ -20,7 +23,17 @@ export default function HeaderLink({
       )}
     >
       {avatar ? (
-        <Icon className="h-7 w-7 lg:-mb-1" />
+        user ? (
+          <Image
+            src={user.image ?? ''}
+            alt={user.name ?? ''}
+            width={28}
+            height={28}
+            className="rounded-full"
+          />
+        ) : (
+          <Icon className="h-7 w-7 lg:-mb-1" />
+        )
       ) : (
         <Icon className="mui-icon" />
       )}
@@ -43,6 +56,7 @@ export default function HeaderLink({
 
 type Props = {
   Icon: React.FC<{ className: string }>
+  user?: Session['user']
   children: ReactNode
   avatar?: boolean
   feed?: boolean

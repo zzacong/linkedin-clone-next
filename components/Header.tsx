@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import clsx from 'clsx'
 import { useTheme } from 'next-themes'
 import { motion } from 'framer-motion'
-import clsx from 'clsx'
+import { useSession } from 'next-auth/react'
 import {
   MdApps,
   MdBusinessCenter,
@@ -19,6 +20,7 @@ import linkedin_icon from '$public/linkedin_icon.png'
 import linkedin_icon_white from '$public/linkedin_icon_white.png'
 
 export default function Header() {
+  const { data: session } = useSession()
   const [mounted, setMounted] = useState(false)
   const { setTheme, resolvedTheme } = useTheme()
 
@@ -76,7 +78,7 @@ export default function Header() {
           <HeaderLink Icon={MdNotifications} feed>
             Notifications
           </HeaderLink>
-          <HeaderLink Icon={Avatar} feed avatar hidden>
+          <HeaderLink Icon={Avatar} user={session?.user} feed avatar hidden>
             Me
           </HeaderLink>
           <HeaderLink Icon={MdApps} feed hidden>
