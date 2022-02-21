@@ -15,7 +15,6 @@ import {
 } from 'react-icons/md'
 
 import HeaderLink from '$components/HeaderLink'
-import Avatar from '$components/Avatar'
 import linkedin_icon from '$public/linkedin_icon.png'
 import linkedin_icon_white from '$public/linkedin_icon_white.png'
 
@@ -78,7 +77,7 @@ export default function Header() {
           <HeaderLink Icon={MdNotifications} feed>
             Notifications
           </HeaderLink>
-          <HeaderLink Icon={Avatar} user={session?.user} feed avatar hidden>
+          <HeaderLink feed avatar hidden>
             Me
           </HeaderLink>
           <HeaderLink Icon={MdApps} feed hidden>

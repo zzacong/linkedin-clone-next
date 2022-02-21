@@ -47,7 +47,7 @@
     @apply flex w-full cursor-pointer items-center justify-between rounded-lg bg-white p-4 text-black hover:shadow-xl md:max-w-md xl:mx-0;
   }
 
-  .sidebar-card {
+  .feed-card {
     @apply t-black dark:t-white overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-none dark:bg-dblue;
   }
 

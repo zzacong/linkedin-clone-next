@@ -1,16 +1,16 @@
-import type { ReactNode } from 'react'
-import type { Session } from 'next-auth'
-import Image from 'next/image'
+import { Fragment, ReactNode } from 'react'
+import dynamic from 'next/dynamic'
 import clsx from 'clsx'
+
+const Avatar = dynamic(() => import('$components/Avatar'))
 
 export default function HeaderLink({
   children,
-  Icon,
+  Icon = Fragment,
   avatar = false,
   feed = false,
   active = false,
   hidden = false,
-  user,
 }: Props) {
   return (
     <div
@@ -22,21 +22,7 @@ export default function HeaderLink({
         active && 'text-black dark:text-white'
       )}
     >
-      {avatar ? (
-        user ? (
-          <Image
-            src={user.image ?? ''}
-            alt={user.name ?? ''}
-            width={28}
-            height={28}
-            className="rounded-full"
-          />
-        ) : (
-          <Icon className="h-7 w-7 lg:-mb-1" />
-        )
-      ) : (
-        <Icon className="mui-icon" />
-      )}
+      {avatar ? <Avatar w={24} h={24} /> : <Icon className="mui-icon" />}
 
       <h4
         className={clsx(
@@ -55,10 +41,9 @@ export default function HeaderLink({
 }
 
 type Props = {
-  Icon: React.FC<{ className: string }>
-  user?: Session['user']
-  children: ReactNode
+  Icon?: React.FC<{ className: string }>
   avatar?: boolean
+  children: ReactNode
   feed?: boolean
   active?: boolean
   hidden?: boolean

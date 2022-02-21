@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { signOut, useSession } from 'next-auth/react'
 import { MdAdd, MdBookmark } from 'react-icons/md'
 
+import Avatar from '$components/Avatar'
 import premium_icon from '$public/premium.svg'
 
 export default function Sidebar() {
@@ -10,20 +11,14 @@ export default function Sidebar() {
   return (
     <div className="space-y-2">
       {/* First card */}
-      <section className="sidebar-card text-center">
+      <section className="feed-card text-center">
         <div className="-mr-3 -ml-3 h-14 min-w-full bg-[url('/sidebar_bg.svg')] bg-cover bg-center"></div>
 
         <button
           onClick={() => signOut({ callbackUrl: '/auth/signin' })}
           className="-mt-9 cursor-pointer touch-manipulation"
         >
-          <Image
-            src={session?.user?.image ?? ''}
-            alt="Profile picture"
-            width={64}
-            height={64}
-            className="rounded-full"
-          />
+          <Avatar w={64} h={64} />
         </button>
 
         <div className="py-4 px-4">
@@ -81,7 +76,7 @@ export default function Sidebar() {
       </section>
 
       {/* Second card */}
-      <section className="sidebar-card sticky top-20 hidden pt-2 md:block">
+      <section className="feed-card sticky top-20 hidden pt-2 md:block">
         <a href="#" className="t-link sidebar-link">
           <h4>Groups</h4>
         </a>
