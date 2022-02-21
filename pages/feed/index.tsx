@@ -4,16 +4,16 @@ import { getSession, useSession } from 'next-auth/react'
 
 import Header from '$components/Header'
 import Sidebar from '$components/Sidebar'
-import Posts from '$components/Posts'
+import Feed from '$components/Feed'
 import Widgets from '$components/Widgets'
 
-export default function Feed() {
+export default function FeedPage() {
   const { data: session } = useSession()
 
   console.log('session', session)
 
   return (
-    <div className="h-screen overflow-y-scroll bg-lstone dark:bg-black">
+    <div className="h-screen overflow-y-scroll bg-lstone transition-all dark:bg-black">
       <Head>
         <title>Feed | LinkedIn | Next</title>
       </Head>
@@ -28,7 +28,7 @@ export default function Feed() {
 
           {/* Feed */}
           <main className="">
-            <Posts />
+            <Feed />
           </main>
 
           {/* Widgets (aside) */}

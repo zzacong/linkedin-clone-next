@@ -48,11 +48,15 @@
   }
 
   .feed-card {
-    @apply t-black dark:t-white overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-none dark:bg-dblue;
+    @apply t-black dark:t-white overflow-hidden rounded-lg bg-white shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] dark:bg-dblue;
   }
 
   .sidebar-btn {
-    @apply block cursor-pointer px-3 hover:bg-black/10 focus:underline focus:underline-offset-1 dark:hover:bg-gray-100/10;
+    @apply block cursor-pointer px-3 focus:underline focus:underline-offset-1;
+  }
+
+  .card-btn {
+    @apply cursor-pointer hover:bg-black/5 focus:bg-black/5 dark:hover:bg-gray-100/10 dark:focus:bg-gray-100/10;
   }
 
   .sidebar-link {
@@ -61,6 +65,10 @@
 
   .sidebar-section {
     @apply border-t-[0.5px] border-gray-300;
+  }
+
+  .addpost-btn {
+    @apply flex h-12 items-center justify-center space-x-3 rounded px-2 text-sm font-semibold;
   }
 
   .t-primary {

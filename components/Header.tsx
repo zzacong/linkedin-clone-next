@@ -55,7 +55,7 @@ export default function Header() {
               name="search"
               id="search"
               placeholder="Search"
-              className="hidden h-8 w-full rounded border-none bg-slate-100 pl-10 text-sm focus:outline-none md:inline-block dark:md:bg-gray-700"
+              className="hidden h-8 w-full rounded border-none bg-slate-100 pl-10 text-sm focus:outline-none dark:bg-gray-700 md:inline-block"
             />
           </div>
         </div>

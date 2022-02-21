@@ -34,7 +34,7 @@ export default function Sidebar() {
           <div className="sidebar-section py-3">
             <a
               href="#"
-              className="sidebar-btn flex justify-between space-x-2 py-1 text-xs"
+              className="sidebar-btn card-btn flex justify-between space-x-2 py-1 text-xs"
             >
               <h4 className="t-secondary font-semibold">
                 Who viewed your profile
@@ -43,14 +43,17 @@ export default function Sidebar() {
             </a>
             <a
               href="#"
-              className="sidebar-btn flex justify-between space-x-2 py-1 text-xs"
+              className="sidebar-btn card-btn flex justify-between space-x-2 py-1 text-xs"
             >
               <h4 className="t-secondary font-semibold">Views of your post</h4>
               <span className="t-link">629</span>
             </a>
           </div>
 
-          <a href="#" className="sidebar-section sidebar-btn py-3 text-xs">
+          <a
+            href="#"
+            className="sidebar-section sidebar-btn card-btn py-3 text-xs"
+          >
             <h4 className="t-secondary">Access exclusive tools & insights</h4>
             <span className="flex items-center space-x-2">
               <Image
@@ -67,7 +70,7 @@ export default function Sidebar() {
 
           <a
             href="#"
-            className="sidebar-section sidebar-btn flex items-center space-x-1.5 p-3"
+            className="sidebar-section sidebar-btn card-btn flex items-center space-x-1.5 p-3"
           >
             <MdBookmark className="mui-icon t-secondary h-4 w-4" />
             <h4 className="text-xs font-semibold">My items</h4>
@@ -91,7 +94,7 @@ export default function Sidebar() {
         <a href="#" className="t-link sidebar-link">
           <h4>Followed Hashtags</h4>
         </a>
-        <a className="sidebar-section sidebar-btn mt-2 p-3">
+        <a className="sidebar-section sidebar-btn card-btn mt-2 p-3">
           <h4 className="t-secondary text-sm font-semibold">Discover more</h4>
         </a>
       </section>
