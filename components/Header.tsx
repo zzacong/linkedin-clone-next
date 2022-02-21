@@ -19,14 +19,13 @@ import linkedin_icon from '$public/linkedin_icon.png'
 import linkedin_icon_white from '$public/linkedin_icon_white.png'
 
 export default function Header() {
-  // const [mounted, setMounted] = useState(false)
-  const { setTheme, resolvedTheme, theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const { setTheme, resolvedTheme } = useTheme()
 
-  // useEffect(() => setMounted(true), [])
-  console.log(theme, resolvedTheme)
+  useEffect(() => setMounted(true), [])
 
   return (
-    <header className="sticky top-0 z-40 bg-white px-4 focus-within:shadow dark:bg-dblue">
+    <header className="t-primary sticky top-0 z-40 bg-white px-4 focus-within:shadow dark:bg-dblue">
       <nav className="mx-auto flex max-w-6xl items-center justify-between py-1">
         {/* Left */}
         <div className="flex w-full max-w-xs items-center space-x-2">
@@ -46,12 +45,16 @@ export default function Header() {
             />
           )}
 
-          <div className="flex h-8 w-full items-center space-x-1 rounded bg-slate-100 py-2 px-4 dark:md:bg-gray-700">
-            <MdSearch className="mui-icon h-5 w-5" />
+          <div className="relative rounded md:w-full">
+            <div className="grid place-items-center pl-3 md:absolute md:inset-y-0">
+              <MdSearch className="mui-icon t-secondary hover:t-black dark:hover:t-white cursor-pointer md:pointer-events-none md:h-5 md:w-5" />
+            </div>
             <input
               type="text"
+              name="search"
+              id="search"
               placeholder="Search"
-              className="hidden flex-grow border-none bg-transparent text-sm placeholder-black/75 focus:outline-none dark:placeholder-white/75 md:inline-flex"
+              className="hidden h-8 w-full rounded border-none bg-slate-100 pl-10 text-sm focus:outline-none md:inline-block dark:md:bg-gray-700"
             />
           </div>
         </div>
@@ -81,23 +84,25 @@ export default function Header() {
           </HeaderLink>
 
           {/* Dark mode toggle */}
-          <button
-            onClick={() =>
-              setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-            }
-            className={clsx(
-              'relative flex h-6 w-12 flex-shrink-0 cursor-pointer items-center rounded-full bg-gray-600 px-0.5',
-              resolvedTheme === 'dark' ? 'justify-end' : 'justify-start'
-            )}
-          >
-            <span className="absolute left-0.5">🌜</span>
-            <motion.div
-              className="z-40 h-5 w-5 rounded-full bg-white"
-              layout
-              transition={spring}
-            />
-            <span className="absolute right-1">🌞</span>
-          </button>
+          {mounted && (
+            <button
+              onClick={() =>
+                setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+              }
+              className={clsx(
+                'relative flex h-6 w-12 flex-shrink-0 cursor-pointer items-center rounded-full bg-gray-600 px-0.5',
+                resolvedTheme === 'dark' ? 'justify-end' : 'justify-start'
+              )}
+            >
+              <span className="absolute left-0.5">🌜</span>
+              <motion.div
+                className="z-40 h-5 w-5 rounded-full bg-white"
+                layout
+                transition={spring}
+              />
+              <span className="absolute right-1">🌞</span>
+            </button>
+          )}
         </div>
       </nav>
     </header>

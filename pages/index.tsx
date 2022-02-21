@@ -32,9 +32,7 @@ export default function Home() {
           <div className="flex items-center divide-gray-300 sm:divide-x">
             <div className="hidden space-x-8 pr-4 sm:flex">
               {/* Header links */}
-              <HeaderLink feed Icon={MdExplore}>
-                Discover
-              </HeaderLink>
+              <HeaderLink Icon={MdExplore}>Discover</HeaderLink>
               <HeaderLink Icon={MdGroup}>People</HeaderLink>
               <HeaderLink Icon={MdOndemandVideo}>Learning</HeaderLink>
               <HeaderLink Icon={MdBusinessCenter}>Jobs</HeaderLink>
@@ -61,15 +59,15 @@ export default function Home() {
             <div className="space-y-4">
               <div className="intent">
                 <h2 className="text-xl">Search for a job</h2>
-                <MdArrowForwardIos className="mui-icon text-gray-700" />
+                <MdArrowForwardIos className="mui-icon t-secondary" />
               </div>
               <div className="intent">
                 <h2 className="text-xl">Find a person you know</h2>
-                <MdArrowForwardIos className="mui-icon text-gray-700" />
+                <MdArrowForwardIos className="mui-icon t-secondary" />
               </div>
               <div className="intent">
                 <h2 className="text-xl">Learn a new skill</h2>
-                <MdArrowForwardIos className="mui-icon text-gray-700" />
+                <MdArrowForwardIos className="mui-icon t-secondary" />
               </div>
             </div>
           </div>

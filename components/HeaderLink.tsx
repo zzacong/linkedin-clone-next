@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import type { IconType } from 'react-icons'
 import clsx from 'clsx'
 
 export default function HeaderLink({
@@ -14,8 +13,7 @@ export default function HeaderLink({
     <div
       className={clsx(
         'flex cursor-pointer flex-col items-center justify-center',
-        feed &&
-          'text-black/60 hover:text-black dark:text-white/75 dark:hover:text-white',
+        feed && 't-secondary hover:text-black dark:hover:text-white',
         !feed && 'text-gray-500 hover:text-gray-700',
         hidden && 'hidden md:inline-flex',
         active && 'text-black dark:text-white'

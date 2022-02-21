@@ -9,7 +9,7 @@ import google_logo from '$public/Google_logo.svg'
 
 export default function SignIn({ providers }: PageProps) {
   return (
-    <div>
+    <div className="t-primary">
       <Head>
         <title>LinkedIn Login, Sign In | Next</title>
       </Head>
@@ -26,7 +26,7 @@ export default function SignIn({ providers }: PageProps) {
 
       <main className="">
         <div className="mx-auto flex h-[467px] w-[400px] flex-col rounded-lg bg-white p-6 shadow-lg">
-          <header className="text-gray-900">
+          <header>
             <h1 className="pb-1 text-3xl font-semibold leading-[1.25]">
               Sign in
             </h1>
@@ -46,7 +46,7 @@ export default function SignIn({ providers }: PageProps) {
                   width={24}
                   height={24}
                 />
-                <span className="ml-2 text-base font-semibold text-gray-700">
+                <span className="t-secondary ml-2 text-base font-semibold">
                   Sign in with Google
                 </span>
               </button>

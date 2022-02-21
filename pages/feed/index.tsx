@@ -7,7 +7,7 @@ import Widgets from '$components/Widgets'
 
 export default function Feed() {
   return (
-    <div className="h-screen overflow-y-scroll bg-[#f3f2ef] dark:bg-black dark:text-white">
+    <div className="h-screen overflow-y-scroll bg-[#f3f2ef] dark:bg-black">
       <Head>
         <title>Feed | LinkedIn | Next</title>
       </Head>
