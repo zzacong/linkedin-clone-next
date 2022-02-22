@@ -30,7 +30,7 @@ export default function AddPost() {
           onClick={openModal}
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
-          className="card-btn my-1 flex h-12 flex-grow items-center rounded-full border border-black/30 py-2.5 px-4 hover:border-none dark:border-gray-500"
+          className="card-btn my-1 flex h-12 flex-grow items-center rounded-full border border-black/30 py-2.5 px-4 dark:border-gray-500"
         >
           <span className="text-sm font-semibold">Start a post</span>
         </motion.button>

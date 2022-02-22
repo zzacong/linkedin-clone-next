@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
 import clsx from 'clsx'
 import { useTheme } from 'next-themes'
@@ -28,21 +29,25 @@ export default function Header() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between py-1">
         {/* Left */}
         <div className="flex w-full max-w-xs items-center space-x-2">
-          {resolvedTheme === 'dark' ? (
-            <Image
-              src={linkedin_icon_white}
-              alt="LinkedIn logo"
-              width={34}
-              height={34}
-            />
-          ) : (
-            <Image
-              src={linkedin_icon}
-              alt="LinkedIn logo"
-              width={34}
-              height={34}
-            />
-          )}
+          <Link href="/" passHref>
+            <a className="flex">
+              {resolvedTheme === 'dark' ? (
+                <Image
+                  src={linkedin_icon_white}
+                  alt="LinkedIn logo"
+                  width={34}
+                  height={34}
+                />
+              ) : (
+                <Image
+                  src={linkedin_icon}
+                  alt="LinkedIn logo"
+                  width={34}
+                  height={34}
+                />
+              )}
+            </a>
+          </Link>
 
           <div className="relative rounded md:w-full">
             <div className="grid place-items-center pl-3 md:absolute md:inset-y-0">
@@ -53,7 +58,7 @@ export default function Header() {
               name="search"
               id="search"
               placeholder="Search"
-              className="hidden h-8 w-full rounded border-none bg-slate-100 pl-10 text-sm focus:outline-none dark:bg-gray-700 md:inline-block"
+              className="hidden h-8 w-full rounded border-none bg-slate-100 pl-10 text-sm dark:bg-gray-700 md:inline-block"
             />
           </div>
         </div>

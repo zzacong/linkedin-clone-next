@@ -38,9 +38,9 @@ export default function SignIn({ providers }: PageProps) {
             <div className="flex flex-1 flex-col items-stretch justify-center space-y-5">
               <button
                 onClick={() => alert('Not implemented')}
-                className="flex h-[52px] items-center justify-center rounded-full bg-[#0a66c2] px-6 shadow-sm transition hover:bg-[#004182] hover:outline-2 focus:bg-[#004182]"
+                className="flex h-[52px] items-center justify-center rounded-full bg-btnblue px-6 shadow-sm hover:bg-btnbluedark focus:bg-btnbluedark"
               >
-                <span className="t-white text-base font-semibold">
+                <span className="text-base font-semibold text-white">
                   Continue with email
                 </span>
               </button>
@@ -48,7 +48,7 @@ export default function SignIn({ providers }: PageProps) {
                 <button
                   key={provider.name}
                   onClick={() => signIn(provider.id, { callbackUrl: '/feed' })}
-                  className="flex h-[52px] items-center justify-center rounded-full bg-white px-6 shadow-sm outline outline-1 outline-gray-500 transition hover:bg-gray-100 hover:outline-2 focus:bg-gray-100 focus:outline-2"
+                  className="flex h-[52px] items-center justify-center rounded-full border border-gray-500 bg-white px-6 shadow-sm  hover:border-2 hover:bg-gray-100 focus:bg-gray-100 "
                 >
                   <Image
                     src={google_logo}

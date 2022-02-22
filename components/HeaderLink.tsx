@@ -13,7 +13,8 @@ export default function HeaderLink({
   hidden = false,
 }: Props) {
   return (
-    <div
+    <a
+      href="#"
       className={clsx(
         'flex cursor-pointer flex-col items-center justify-center',
         feed && 't-secondary hover:text-black dark:hover:text-white',
@@ -36,7 +37,7 @@ export default function HeaderLink({
       {active && (
         <span className="hidden h-0.5 w-[calc(100%+20px)] rounded-t-full bg-black dark:bg-white lg:inline-flex" />
       )}
-    </div>
+    </a>
   )
 }
 

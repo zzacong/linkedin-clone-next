@@ -6,6 +6,11 @@
   body {
     @apply bg-gray-100;
   }
+
+  a,
+  button {
+    @apply focus:outline-offset-2;
+  }
 }
 
 @layer utilities {
@@ -56,7 +61,7 @@
   }
 
   .card-btn {
-    @apply cursor-pointer transition-colors duration-200 hover:bg-black/5 focus:bg-black/5 dark:hover:bg-gray-100/10 dark:focus:bg-gray-100/10;
+    @apply cursor-pointer transition-colors duration-200 hover:bg-black/5 focus:bg-black/5 focus:outline-offset-2 dark:hover:bg-gray-100/10 dark:focus:bg-gray-100/10;
   }
 
   .sidebar-link {

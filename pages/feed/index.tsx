@@ -37,7 +37,8 @@ export default function FeedPage() {
           </aside>
         </div>
       </div>
-      <Modal />
+      <Modal type="dropIn" />
+      {/* <Modal type="gifYouUp" /> */}
     </div>
   )
 }

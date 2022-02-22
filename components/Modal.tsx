@@ -1,11 +1,12 @@
 import Image from 'next/image'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { useSession } from 'next-auth/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Dialog } from '@headlessui/react'
 import { MdArrowDropDown, MdClose, MdPublic } from 'react-icons/md'
 
 import Avatar from '$components/Avatar'
+import AddPostForm from '$components/AddPostForm'
 import { modalState } from '$lib/atoms'
 
 export default function Modal({ type = 'dropIn' }: Props) {
@@ -23,6 +24,7 @@ export default function Modal({ type = 'dropIn' }: Props) {
         >
           <Dialog.Overlay
             as={motion.div}
+            onClick={() => setIsOpen(false)}
             className="fixed inset-0 bg-black/70"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -32,7 +34,7 @@ export default function Modal({ type = 'dropIn' }: Props) {
           <div className="flex min-h-screen items-center justify-center">
             {type === 'dropIn' && (
               <motion.div
-                className="t-primary mx-6 mt-36 flex w-full max-w-xl flex-col justify-center self-start rounded-xl bg-white dark:bg-dblue"
+                className="t-primary mx-6 mt-28 flex w-full max-w-xl flex-col justify-center self-start rounded-xl bg-white dark:bg-dblue"
                 variants={dropIn}
                 initial="hidden"
                 animate="visible"
@@ -43,16 +45,11 @@ export default function Modal({ type = 'dropIn' }: Props) {
                   <Dialog.Description className="hidden">
                     Create a new LinkedIn post
                   </Dialog.Description>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="card-btn rounded-full p-2"
-                  >
-                    <MdClose className="t-secondary h-7 w-7" />
-                  </button>
+                  <CloseButton />
                 </div>
 
-                <div className="space-y-2 p-4">
-                  <div className="flex items-center space-x-2">
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 px-4 pt-3">
                     <Avatar w={44} h={44} />
                     <div className="flex flex-col justify-center">
                       <h3 className="mb-1 text-base font-semibold">
@@ -65,6 +62,7 @@ export default function Modal({ type = 'dropIn' }: Props) {
                       </button>
                     </div>
                   </div>
+                  <AddPostForm />
                 </div>
               </motion.div>
             )}
@@ -75,20 +73,28 @@ export default function Modal({ type = 'dropIn' }: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="mx-6 flex h-screen max-h-[calc(100vh-160px)] w-full max-w-6xl rounded-lg bg-dblue"
+                className="relative mx-6 flex h-screen max-h-[calc(100vh-160px)] w-full max-w-6xl rounded-lg"
               >
+                <Dialog.Title className="hidden">View post</Dialog.Title>
+                <Dialog.Description className="hidden">
+                  View a post
+                </Dialog.Description>
                 {/* left panel */}
-                <motion.div className="relative h-full flex-grow rounded-l-lg bg-inherit">
+                <div className="relative h-full flex-grow rounded-l-lg bg-dblue">
                   <Image
                     src="https://images.unsplash.com/photo-1645363710209-aad3e68d0e6f"
                     alt="placeholder image"
                     layout="fill"
                     objectFit="contain"
                   />
-                </motion.div>
+                </div>
 
-                <div className="w-1/3 rounded-r-lg bg-white dark:bg-dblue">
+                <div className="w-1/3 rounded-r-lg bg-white dark:border-l dark:border-gray-500 dark:bg-dblue">
                   {/* <Post post={post} modalPost /> */}
+                  <div className="flex items-center justify-between pl-4 pr-2 pt-2">
+                    <span />
+                    <CloseButton />
+                  </div>
                 </div>
               </motion.div>
             )}
@@ -96,6 +102,19 @@ export default function Modal({ type = 'dropIn' }: Props) {
         </Dialog>
       )}
     </AnimatePresence>
+  )
+}
+
+const CloseButton = () => {
+  const setIsOpen = useSetRecoilState(modalState)
+
+  return (
+    <button
+      onClick={() => setIsOpen(false)}
+      className="card-btn rounded-full p-2"
+    >
+      <MdClose className="t-secondary h-7 w-7" />
+    </button>
   )
 }
 
