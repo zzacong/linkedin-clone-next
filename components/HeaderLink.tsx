@@ -23,7 +23,7 @@ export default function HeaderLink({
         active && 'text-black dark:text-white'
       )}
     >
-      {avatar ? <Avatar w={24} h={24} /> : <Icon className="mui-icon" />}
+      {avatar ? <Avatar size={24} /> : <Icon className="mui-icon" />}
 
       <h4
         className={clsx(

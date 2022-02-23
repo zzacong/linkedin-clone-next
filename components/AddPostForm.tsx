@@ -85,7 +85,7 @@ export default function AddPostForm() {
       >
         <div className="flex-grow overflow-y-auto">
           <div className="flex items-center space-x-2 px-4 pt-3">
-            <Avatar w={44} h={44} />
+            <Avatar size={44} />
             <div className="flex flex-col justify-center">
               <h3 className="mb-1 text-base font-semibold">
                 {session?.user?.name}

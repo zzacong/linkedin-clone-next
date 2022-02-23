@@ -18,7 +18,7 @@ export default function Sidebar() {
           onClick={() => signOut({ callbackUrl: '/auth/signin' })}
           className="-mt-9 cursor-pointer touch-manipulation"
         >
-          <Avatar w={64} h={64} />
+          <Avatar size={64} />
         </button>
 
         <div className="py-4 px-4">

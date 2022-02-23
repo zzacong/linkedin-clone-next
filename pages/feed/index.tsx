@@ -19,12 +19,10 @@ export default function FeedPage() {
       <div className="px-4">
         <div className="mx-auto my-6 grid max-w-xl grid-cols-1 gap-5 md:max-w-3xl md:grid-cols-[7fr_17fr] lg:max-w-6xl lg:grid-cols-[5fr_12fr_7fr]">
           {/* Sidebar */}
-          <div className="">
-            <Sidebar />
-          </div>
+          <Sidebar />
 
           {/* Feed */}
-          <main className="">
+          <main>
             <Feed />
           </main>
 

@@ -24,7 +24,7 @@ export default function AddPost() {
     <div className="feed-card t-secondary">
       <div className="flex items-center p-4 pt-2">
         <a href="#" className="mr-2 flex rounded-full">
-          <Avatar h={48} w={48} />
+          <Avatar size={48} />
         </a>
         <motion.button
           onClick={openModal}
