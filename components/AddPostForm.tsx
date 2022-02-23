@@ -1,8 +1,9 @@
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
+import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { type SubmitHandler, useForm, ChangeHandler } from 'react-hook-form'
-import axios from 'axios'
+import { useSetRecoilState } from 'recoil'
 import {
   MdArticle,
   MdBarChart,
@@ -18,8 +19,10 @@ import { TiStarburst } from 'react-icons/ti'
 import { uploadImage } from '$lib/utils'
 import { storage } from '$lib/config/firebase'
 import Avatar from '$components/Avatar'
+import { modalState } from '$lib/atoms'
 
 export default function AddPostForm() {
+  const setModalOpen = useSetRecoilState(modalState)
   const [dataUrl, setDataUrl] = useState('')
   const { data: session } = useSession()
   const {
@@ -50,12 +53,13 @@ export default function AddPostForm() {
           photoUrl: downloadURL,
         })
         reset()
+        setModalOpen(false)
       } catch (error) {
         console.error(error)
         alert(error)
       }
     },
-    [reset, session?.user]
+    [reset, session?.user?.uid, setModalOpen]
   )
 
   const onSelectImage: ChangeHandler = async e => {
