@@ -9,10 +9,6 @@ import Sidebar from '$components/Sidebar'
 import Widgets from '$components/Widgets'
 
 export default function FeedPage() {
-  const { data: session } = useSession()
-
-  console.log('session', session)
-
   return (
     <div className="h-screen overflow-y-scroll bg-lstone transition-all dark:bg-black">
       <Head>

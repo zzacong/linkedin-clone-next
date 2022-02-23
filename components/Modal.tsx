@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { useSession } from 'next-auth/react'
@@ -10,21 +11,26 @@ import AddPostForm from '$components/AddPostForm'
 import { modalState } from '$lib/atoms'
 
 export default function Modal({ type = 'dropIn' }: Props) {
+  const [isClient, setIsClient] = useState(false)
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useRecoilState(modalState)
 
+  useEffect(() => setIsClient(true), [])
+
+  if (!isClient) return null
+
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       {isOpen && (
         <Dialog
           static
           open={isOpen}
           onClose={() => setIsOpen(false)}
-          className="fixed inset-0 z-50 overflow-y-auto"
+          className="fixed inset-0 z-50"
         >
           <Dialog.Overlay
             as={motion.div}
-            onClick={() => setIsOpen(false)}
+            // onClick={() => setIsOpen(false)}
             className="fixed inset-0 bg-black/70"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -34,36 +40,21 @@ export default function Modal({ type = 'dropIn' }: Props) {
           <div className="flex min-h-screen items-center justify-center">
             {type === 'dropIn' && (
               <motion.div
-                className="t-primary mx-6 mt-28 flex w-full max-w-xl flex-col justify-center self-start rounded-xl bg-white dark:bg-dblue"
+                className="t-primary mx-6 flex max-h-[calc(100vh-160px)] w-full max-w-xl flex-col justify-center overflow-y-hidden rounded-xl bg-white dark:bg-dblue"
                 variants={dropIn}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
               >
-                <div className="flex items-center justify-between border-b border-black/10 py-4 pl-6 pr-4 dark:border-gray-500">
+                <header className="flex items-center justify-between border-b border-black/10 py-4 pl-6 pr-4 dark:border-gray-500">
                   <Dialog.Title className="text-xl">Create a post</Dialog.Title>
-                  <Dialog.Description className="hidden">
+                  <Dialog.Description className="sr-only">
                     Create a new LinkedIn post
                   </Dialog.Description>
                   <CloseButton />
-                </div>
+                </header>
 
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2 px-4 pt-3">
-                    <Avatar w={44} h={44} />
-                    <div className="flex flex-col justify-center">
-                      <h3 className="mb-1 text-base font-semibold">
-                        {session?.user?.name}
-                      </h3>
-                      <button className="card-btn t-secondary flex items-center justify-center rounded-full border border-black/60 px-3 py-1 dark:border-gray-500">
-                        <MdPublic size={16} />
-                        <span className="px-2 font-semibold">Anyone</span>
-                        <MdArrowDropDown size={24} />
-                      </button>
-                    </div>
-                  </div>
-                  <AddPostForm />
-                </div>
+                <AddPostForm />
               </motion.div>
             )}
 
@@ -75,8 +66,8 @@ export default function Modal({ type = 'dropIn' }: Props) {
                 exit="exit"
                 className="relative mx-6 flex h-screen max-h-[calc(100vh-160px)] w-full max-w-6xl rounded-lg"
               >
-                <Dialog.Title className="hidden">View post</Dialog.Title>
-                <Dialog.Description className="hidden">
+                <Dialog.Title className="sr-only">View post</Dialog.Title>
+                <Dialog.Description className="sr-only">
                   View a post
                 </Dialog.Description>
                 {/* left panel */}
