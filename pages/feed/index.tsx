@@ -1,12 +1,13 @@
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { getSession, useSession } from 'next-auth/react'
-
+import { getSession } from 'next-auth/react'
+import { prisma } from '$lib/config/prisma'
 import Feed from '$components/Feed'
 import Header from '$components/Header'
 import Modal from '$components/Modal'
 import Sidebar from '$components/Sidebar'
 import Widgets from '$components/Widgets'
+import { dehydrate, QueryClient } from 'react-query'
 
 export default function FeedPage() {
   return (
@@ -51,13 +52,20 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
   }
 
-  // // Get posts on SSR
-  // const { db } = await connectToDatabase()
-  // const posts = await db
-  //   .collection('posts')
-  //   .find()
-  //   .sort({ timestamp: -1 })
-  //   .toArray()
+  // Get posts on SSR
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery('posts', async () =>
+    prisma.post.findMany({
+      select: {
+        id: true,
+        input: true,
+      },
+
+      orderBy: { createdAt: 'desc' },
+    })
+  )
+  const dehydratedState = dehydrate(queryClient)
+  queryClient.clear()
 
   // // Get Google News API
   // const results = await fetch(
@@ -67,16 +75,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
   return {
     props: {
       session,
+      dehydratedState,
       // articles: results.articles,
-      // posts: posts.map(post => ({
-      //   _id: post._id.toString(),
-      //   input: post.input,
-      //   photoUrl: post.photoUrl,
-      //   username: post.username,
-      //   email: post.email,
-      //   userImg: post.userImg,
-      //   createdAt: post.createdAt,
-      // })),
     },
   }
 }

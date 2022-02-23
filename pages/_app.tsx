@@ -1,15 +1,20 @@
 import type { AppProps } from 'next/app'
+import { useRef, useState } from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { SessionProvider } from 'next-auth/react'
 import { RecoilRoot } from 'recoil'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import '$styles/globals.css'
 
 export default function MyApp({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps: { session, dehydratedState, ...pageProps },
 }: AppProps) {
+  const queryClient = useRef(new QueryClient())
+
   return (
     <>
       <Head>
@@ -22,11 +27,16 @@ export default function MyApp({
       </Head>
 
       <SessionProvider session={session}>
-        <ThemeProvider attribute="class">
-          <RecoilRoot>
-            <Component {...pageProps} />
-          </RecoilRoot>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient.current}>
+          <Hydrate state={dehydratedState}>
+            <ThemeProvider attribute="class">
+              <RecoilRoot>
+                <Component {...pageProps} />
+              </RecoilRoot>
+            </ThemeProvider>
+          </Hydrate>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
       </SessionProvider>
     </>
   )

@@ -5,6 +5,18 @@ export default withAuthApi(async ({ method, body, query }, res) => {
   const { id } = query
   const { photoUrl } = body
 
+  if (method === 'GET') {
+    try {
+      const post = await prisma.post.findUnique({
+        where: { id: +id },
+      })
+      return res.status(200).json(post)
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json(error)
+    }
+  }
+
   if (method === 'PATCH') {
     if (!photoUrl?.trim?.()) return res.status(400).end()
 
