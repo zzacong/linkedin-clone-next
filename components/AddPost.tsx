@@ -5,7 +5,7 @@ import {
   MdArticle,
   MdEvent,
   MdOutlinePhotoSizeSelectActual,
-  MdVideocam,
+  MdSmartDisplay,
 } from 'react-icons/md'
 
 import Avatar from '$components/Avatar'
@@ -22,7 +22,7 @@ export default function AddPost() {
 
   return (
     <div className="feed-card t-secondary">
-      <div className="flex items-center p-4 pt-2">
+      <div className="flex items-center p-4 pt-3">
         <a href="#" className="mr-2 flex rounded-full">
           <Avatar size={48} />
         </a>
@@ -42,7 +42,7 @@ export default function AddPost() {
           <h4 className="whitespace-nowrap">Photo</h4>
         </button>
         <button className="addpost-btn card-btn">
-          <MdVideocam className="text-green-500" size={24} />
+          <MdSmartDisplay className="text-green-500" size={24} />
           <h4 className="whitespace-nowrap">Video</h4>
         </button>
         <button className="addpost-btn card-btn">

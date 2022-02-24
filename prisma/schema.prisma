@@ -59,7 +59,7 @@ model VerificationToken {
 
 model Post {
   id        Int      @id @default(autoincrement())
-  input     String
+  input     String   @db.Text
   photoUrl  String?
   authorId  String
   createdAt DateTime @default(now())

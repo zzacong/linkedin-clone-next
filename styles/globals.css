@@ -9,7 +9,7 @@
 
   a,
   button {
-    @apply focus:outline-offset-2;
+    @apply cursor-pointer focus:outline-offset-2;
   }
 }
 
@@ -86,5 +86,9 @@
 
   .t-link {
     @apply t-blue dark:t-blue-light cursor-pointer decoration-blue-500 underline-offset-1 hover:underline focus:underline;
+  }
+
+  .post-btn {
+    @apply t-black-light dark:t-white-light flex items-center justify-center rounded py-2.5 px-2 text-sm font-semibold;
   }
 }

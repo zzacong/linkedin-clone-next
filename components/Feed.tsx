@@ -2,6 +2,7 @@ import AddPost from '$components/AddPost'
 import { useQuery } from 'react-query'
 import { fetchPosts } from '$lib/utils'
 import Post from '$components/Post'
+import { MdArrowDropDown } from 'react-icons/md'
 
 export default function Feed() {
   const {
@@ -14,9 +15,19 @@ export default function Feed() {
   })
 
   return (
-    <div className="space-y-4">
+    <div className="">
       <AddPost />
-      <div className="bg-red-100">
+      <div className="my-2">
+        <button className="flex w-full cursor-pointer items-center">
+          <hr className="mr-2 h-[1px] flex-grow border-t border-black/10 bg-black/10 dark:border-gray-500 dark:bg-gray-500" />
+          <div className="flex items-center">
+            <span className="t-secondary text-xs">Sort by</span>
+            <span className="mx-1 text-xs font-semibold">Top</span>
+            <MdArrowDropDown size={20} className="-ml-1" />
+          </div>
+        </button>
+      </div>
+      <div className="space-y-4">
         {isLoading && <p>loading...</p>}
         {isError && error instanceof Error && <p>Error: {error?.message}</p>}
 

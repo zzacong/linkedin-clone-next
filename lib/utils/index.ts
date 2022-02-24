@@ -1,4 +1,4 @@
-import type { Post } from '@prisma/client'
+import type { Post } from '$lib/types'
 import axios from 'axios'
 import {
   type FirebaseStorage,
@@ -27,4 +27,8 @@ export async function fetchPosts(): Promise<Post[]> {
 export async function fetchPost(id: number): Promise<Post> {
   const { data } = await axios.get(`/api/posts/${id}`)
   return data
+}
+
+export async function deletePost(id: number) {
+  await axios.delete(`/api/posts/${id}`)
 }

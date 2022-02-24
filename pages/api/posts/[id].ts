@@ -9,6 +9,16 @@ export default withAuthApi(async ({ method, body, query }, res) => {
     try {
       const post = await prisma.post.findUnique({
         where: { id: +id },
+        include: {
+          author: {
+            select: {
+              email: true,
+              id: true,
+              image: true,
+              name: true,
+            },
+          },
+        },
       })
       return res.status(200).json(post)
     } catch (error) {

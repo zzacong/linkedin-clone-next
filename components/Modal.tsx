@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { useSession } from 'next-auth/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Dialog } from '@headlessui/react'
-import { MdArrowDropDown, MdClose, MdPublic } from 'react-icons/md'
+import { MdClose } from 'react-icons/md'
 
-import Avatar from '$components/Avatar'
 import AddPostForm from '$components/AddPostForm'
-import { modalState } from '$lib/atoms'
+import Post from '$components/Post'
+import { modalPostState, modalState, modalTypeState } from '$lib/atoms'
 
-export default function Modal({ type = 'dropIn' }: Props) {
+export default function Modal() {
   const [isClient, setIsClient] = useState(false)
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useRecoilState(modalState)
+  const modalType = useRecoilValue(modalTypeState)
+  const post = useRecoilValue(modalPostState)
 
   useEffect(() => setIsClient(true), [])
 
@@ -38,7 +40,7 @@ export default function Modal({ type = 'dropIn' }: Props) {
           />
 
           <div className="flex min-h-screen items-center justify-center">
-            {type === 'dropIn' && (
+            {modalType === 'dropIn' && (
               <motion.div
                 className="t-primary mx-6 flex max-h-[calc(100vh-160px)] w-full max-w-xl flex-col justify-center overflow-y-hidden rounded-xl bg-white dark:bg-dblue"
                 variants={dropIn}
@@ -58,7 +60,7 @@ export default function Modal({ type = 'dropIn' }: Props) {
               </motion.div>
             )}
 
-            {type == 'gifYouUp' && (
+            {modalType == 'gifYouUp' && (
               <motion.div
                 variants={gifYouUp}
                 initial="hidden"
@@ -80,12 +82,8 @@ export default function Modal({ type = 'dropIn' }: Props) {
                   />
                 </div>
 
-                <div className="w-1/3 rounded-r-lg bg-white dark:border-l dark:border-gray-500 dark:bg-dblue">
-                  {/* <Post post={post} modalPost /> */}
-                  <div className="flex items-center justify-between pl-4 pr-2 pt-2">
-                    <span />
-                    <CloseButton />
-                  </div>
+                <div className="w-1/3 rounded-r-lg bg-white dark:border-l-[0.5px] dark:border-gray-500 dark:bg-dblue">
+                  <Post post={post!} modalPost />
                 </div>
               </motion.div>
             )}
@@ -151,8 +149,4 @@ const gifYouUp = {
       ease: 'easeOut',
     },
   },
-}
-
-type Props = {
-  type?: 'dropIn' | 'gifYouUp'
 }

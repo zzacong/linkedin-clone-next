@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { SessionProvider } from 'next-auth/react'

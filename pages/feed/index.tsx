@@ -1,13 +1,15 @@
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { getSession } from 'next-auth/react'
+import { dehydrate, QueryClient } from 'react-query'
+import axios from 'axios'
+
 import { prisma } from '$lib/config/prisma'
 import Feed from '$components/Feed'
 import Header from '$components/Header'
 import Modal from '$components/Modal'
 import Sidebar from '$components/Sidebar'
 import Widgets from '$components/Widgets'
-import { dehydrate, QueryClient } from 'react-query'
 
 export default function FeedPage() {
   return (
@@ -32,8 +34,7 @@ export default function FeedPage() {
           </aside>
         </div>
       </div>
-      <Modal type="dropIn" />
-      {/* <Modal type="gifYouUp" /> */}
+      <Modal />
     </div>
   )
 }
@@ -52,29 +53,40 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   // Get posts on SSR
   const queryClient = new QueryClient()
-  await queryClient.prefetchQuery('posts', async () =>
-    prisma.post.findMany({
-      select: {
-        id: true,
-        input: true,
+  await queryClient.prefetchQuery('posts', async () => {
+    const posts = await prisma.post.findMany({
+      include: {
+        author: {
+          select: {
+            email: true,
+            id: true,
+            image: true,
+            name: true,
+          },
+        },
       },
-
       orderBy: { createdAt: 'desc' },
     })
-  )
+
+    return posts.map(p => ({
+      ...p,
+      createdAt: p.createdAt.toISOString(),
+      updatedAt: p.updatedAt.toISOString(),
+    }))
+  })
   const dehydratedState = dehydrate(queryClient)
   queryClient.clear()
 
-  // // Get Google News API
-  // const results = await fetch(
-  //   `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEWS_API_KEY}`
-  // ).then(res => res.json())
+  // Get Google News API
+  const { data: news } = await axios.get(
+    `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEWS_API_KEY}`
+  )
 
   return {
     props: {
       session,
       dehydratedState,
-      // articles: results.articles,
+      articles: news.articles,
     },
   }
 }

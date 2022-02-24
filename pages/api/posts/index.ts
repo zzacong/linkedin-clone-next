@@ -8,6 +8,16 @@ export default withAuthApi(async ({ method, body }, res, session) => {
   if (method === 'GET') {
     try {
       const posts = await prisma.post.findMany({
+        include: {
+          author: {
+            select: {
+              email: true,
+              id: true,
+              image: true,
+              name: true,
+            },
+          },
+        },
         orderBy: { createdAt: 'desc' },
       })
       res.status(200).json(posts)

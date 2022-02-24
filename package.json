@@ -25,6 +25,7 @@
     "@prisma/client": "^3.10.0",
     "axios": "^0.26.0",
     "clsx": "^1.1.1",
+    "date-fns": "^2.28.0",
     "firebase": "^9.6.7",
     "firebase-admin": "^10.0.2",
     "framer-motion": "^6.2.6",
@@ -54,7 +55,7 @@
     "postcss": "^8.4.6",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.7",
-    "prisma": "^3.9.2",
+    "prisma": "^3.10.0",
     "tailwindcss": "^3.0.23",
     "typescript": "4.5.5"
   }
