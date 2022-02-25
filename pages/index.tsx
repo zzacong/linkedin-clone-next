@@ -13,6 +13,8 @@ import {
 import HeaderLink from '$components/HeaderLink'
 import linkedin_logo from '$public/linkedin_logo.svg'
 import hero_svg from '$public/hero.svg'
+import { getToken } from 'next-auth/jwt'
+import { GetServerSideProps } from 'next'
 
 export default function Home() {
   return (
@@ -83,4 +85,11 @@ export default function Home() {
       </main>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const token = await getToken({ req })
+  console.log(token)
+
+  return { props: {} }
 }
