@@ -4,7 +4,6 @@ import { getToken } from 'next-auth/jwt'
 export async function middleware(req: any) {
   if (req.page.name === '/') {
     const token = await getToken({ req })
-    console.log('token', token)
     const url = req.nextUrl.clone()
     url.pathname = '/feed'
     if (token) return NextResponse.redirect(url)

@@ -86,10 +86,3 @@ export default function Home() {
     </div>
   )
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const token = await getToken({ req })
-  console.log(token)
-
-  return { props: {} }
-}

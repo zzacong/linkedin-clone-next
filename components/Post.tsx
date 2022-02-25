@@ -30,9 +30,7 @@ export default function Post({ post, modalPost = false }: Props) {
   const setModalPost = useSetRecoilState(modalPostState)
 
   const onDeletePost = async () => {
-    console.log('predelete')
     if (session?.user?.uid !== post.authorId) return
-    console.log('delete')
     try {
       setIsDeleting(true)
       await deletePost(post.id)
