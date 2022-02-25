@@ -1,8 +1,11 @@
 import type { GetServerSideProps } from 'next'
+import type { Article } from '$lib/types'
+import { useEffect } from 'react'
 import Head from 'next/head'
+import axios from 'axios'
+import { useSetRecoilState } from 'recoil'
 import { getSession } from 'next-auth/react'
 import { dehydrate, QueryClient } from 'react-query'
-import axios from 'axios'
 
 import { prisma } from '$lib/config/prisma'
 import Feed from '$components/Feed'
@@ -10,8 +13,16 @@ import Header from '$components/Header'
 import Modal from '$components/Modal'
 import Sidebar from '$components/Sidebar'
 import Widgets from '$components/Widgets'
+import { articlesState } from '$lib/atoms'
+import Footer from '$components/Footer'
 
-export default function FeedPage() {
+export default function FeedPage({ articles }: Props) {
+  const setArticles = useSetRecoilState(articlesState)
+
+  useEffect(() => {
+    setArticles(articles)
+  }, [articles, setArticles])
+
   return (
     <div className="h-screen overflow-y-scroll bg-lstone transition-all dark:bg-black">
       <Head>
@@ -29,8 +40,9 @@ export default function FeedPage() {
           </main>
 
           {/* Widgets (aside) */}
-          <aside className="hidden lg:block">
+          <aside className="block md:hidden lg:block">
             <Widgets />
+            <Footer />
           </aside>
         </div>
       </div>
@@ -89,4 +101,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
       articles: news.articles,
     },
   }
+}
+
+type Props = {
+  articles: Article[]
 }

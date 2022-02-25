@@ -79,7 +79,7 @@ export default function Sidebar() {
       </section>
 
       {/* Second card */}
-      <section className="feed-card sticky top-20 hidden pt-2 md:block">
+      <section className="feed-card sticky top-16 hidden pt-2 md:block lg:top-20">
         <a href="#" className="t-link sidebar-link">
           <h4>Groups</h4>
         </a>
