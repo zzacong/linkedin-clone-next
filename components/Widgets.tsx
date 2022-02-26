@@ -60,11 +60,11 @@ const Item = ({ article: a }: { article: Article }) => (
     >
       <div className="flex items-center">
         <MdCircle className="mui-icon t-secondary mx-3 h-2 w-2 rounded-full" />
-        <span className="inline-block max-w-[480px] truncate text-sm font-semibold lg:max-w-[260px]">
+        <p className="block max-w-[480px] truncate text-sm font-semibold lg:max-w-[260px]">
           {a.title}
-        </span>
+        </p>
       </div>
-      <span className="t-secondary inline-block w-full truncate pl-8 text-xs">
+      <span className="t-secondary block w-full truncate pl-8 text-xs">
         {formatDistanceToNow(parseISO(a.publishedAt), {
           addSuffix: true,
         })}

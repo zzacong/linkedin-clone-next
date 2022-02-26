@@ -138,7 +138,7 @@ export default function Post({ post, modalPost = false }: Props) {
           <span>Share</span>
         </button>
 
-        <button className="post-btn card-btn focus:text-red-400 disabled:cursor-not-allowed disabled:text-black/40 dark:disabled:text-white/40">
+        <button className="post-btn card-btn">
           <RiSendPlaneFill className="mui-icon mr-1" />
           <span>Send</span>
         </button>

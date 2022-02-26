@@ -9,7 +9,7 @@ import google_logo from '$public/Google_logo.svg'
 
 export default function SignIn({ providers }: PageProps) {
   return (
-    <div className="t-primary flex min-h-screen flex-col bg-lstone">
+    <div className="t-black flex min-h-screen flex-col bg-lstone">
       <Head>
         <title>LinkedIn Login, Sign In | Next</title>
       </Head>
@@ -56,7 +56,7 @@ export default function SignIn({ providers }: PageProps) {
                     width={24}
                     height={24}
                   />
-                  <span className="t-secondary ml-2 text-base font-semibold">
+                  <span className="t-black-light ml-2 text-base font-semibold">
                     Continue with {provider.name}
                   </span>
                 </button>
