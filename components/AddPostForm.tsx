@@ -11,6 +11,7 @@ import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { type SubmitHandler, useForm, ChangeHandler } from 'react-hook-form'
 import { useSetRecoilState } from 'recoil'
+import { useQueryClient } from 'react-query'
 import {
   MdArticle,
   MdBarChart,
@@ -27,7 +28,6 @@ import { uploadImage } from '$lib/utils'
 import { storage } from '$lib/config/firebase'
 import Avatar from '$components/Avatar'
 import { modalState } from '$lib/atoms'
-import { useQueryClient } from 'react-query'
 
 export default function AddPostForm() {
   const queryClient = useQueryClient()
@@ -50,21 +50,30 @@ export default function AddPostForm() {
     async data => {
       if (!session?.user?.uid) return
       try {
-        const { data: res } = await axios.post<{ id: number }>('/api/posts', {
+        let newPost: any
+        const { data: res } = await axios.post('/api/posts', {
           input: data.input.trim(),
         })
-        const downloadURL = await uploadImage(
-          storage,
-          data.image[0],
-          session.user.uid,
-          res.id.toString()
-        )
-        const { data: post } = await axios.patch(`/api/posts/${res.id}`, {
-          photoUrl: downloadURL,
-        })
+        newPost = res
+
+        if (data.image[0]) {
+          const downloadURL = await uploadImage(
+            storage,
+            data.image[0],
+            session.user.uid,
+            res.id.toString()
+          )
+          const { data: post } = await axios.patch(`/api/posts/${res.id}`, {
+            photoUrl: downloadURL,
+          })
+          newPost = post
+        }
         reset()
         setModalOpen(false)
-        queryClient.setQueryData<Post[]>('posts', old => [post, ...(old ?? [])])
+        queryClient.setQueryData<Post[]>('posts', old => [
+          newPost,
+          ...(old ?? []),
+        ])
       } catch (error) {
         console.error(error)
         alert(error)

@@ -18,11 +18,13 @@ import {
 import { RiSendPlaneFill } from 'react-icons/ri'
 import { HiOutlineReply } from 'react-icons/hi'
 import { IoIosMore } from 'react-icons/io'
+import { useMutation, useQueryClient } from 'react-query'
 
 import { modalPostState, modalState, modalTypeState } from '$lib/atoms'
 import Avatar from '$components/Avatar'
 import { deletePost } from '$lib/utils'
 import { IconType } from 'react-icons'
+import { storage } from '$lib/config/firebase'
 
 export default function Post({ post, modalPost = false }: Props) {
   const [liked, setLiked] = useState(false)
@@ -69,11 +71,11 @@ export default function Post({ post, modalPost = false }: Props) {
         )}
       </header>
 
-      <div className="">
+      <div>
         {post.input && (
           <article
             className={clsx(
-              'relative mx-4 max-h-14 overflow-hidden break-words text-sm leading-5',
+              'relative mx-4 mb-2 max-h-14 overflow-hidden break-words text-sm leading-5',
               showAll && 'max-h-[none]',
               modalPost && 'max-h-72 overflow-y-auto'
             )}
@@ -98,7 +100,7 @@ export default function Post({ post, modalPost = false }: Props) {
               setModalType('gifYouUp')
               setModalPost(post)
             }}
-            className="mt-2 w-full"
+            className="w-full"
           >
             <Image
               src={post.photoUrl}
@@ -151,23 +153,32 @@ type Props = {
 }
 
 const PostMenu = ({ post }: { post: Props['post'] }) => {
+  const client = useQueryClient()
+  const { mutate } = useMutation(deletePost, {
+    onMutate: () => setIsDeleting(true),
+    onSuccess: deletedPost => {
+      console.log('deleted', deletedPost)
+      setModalOpen(false)
+      client.setQueryData<Post[]>('posts', posts =>
+        posts ? posts.filter(p => p.id !== deletedPost.id) : []
+      )
+    },
+    onError: error => {
+      console.error(error)
+      alert(error)
+    },
+    onSettled: () => {
+      setIsDeleting(false)
+    },
+  })
   const { data: session } = useSession()
   const setModalOpen = useSetRecoilState(modalState)
   const [isDeleting, setIsDeleting] = useState(false)
 
   const onDeletePost = useCallback(async () => {
     if (session?.user?.uid !== post.authorId) return
-    try {
-      setIsDeleting(true)
-      await deletePost(post.id)
-      setModalOpen(false)
-    } catch (error) {
-      console.error(error)
-      alert(error)
-    } finally {
-      setIsDeleting(false)
-    }
-  }, [post.authorId, post.id, session?.user?.uid, setModalOpen])
+    mutate({ post, storage })
+  }, [mutate, post, session?.user?.uid])
 
   return (
     <Menu as="div" className="relative">

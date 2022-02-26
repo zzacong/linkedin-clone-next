@@ -2,7 +2,7 @@ import { prisma } from '$lib/config/prisma'
 import { withAuthApi } from '$lib/utils/api'
 
 export default withAuthApi(async ({ method, body }, res, session) => {
-  const { input, authorId, photoUrl } = body
+  const { input, photoUrl } = body
 
   // Get all posts
   if (method === 'GET') {
@@ -38,7 +38,16 @@ export default withAuthApi(async ({ method, body }, res, session) => {
           authorId: session?.user?.uid ?? '',
           photoUrl: photoUrl?.trim?.(),
         },
-        select: { id: true },
+        include: {
+          author: {
+            select: {
+              email: true,
+              id: true,
+              image: true,
+              name: true,
+            },
+          },
+        },
       })
       res.status(201).json(post)
     } catch (error) {

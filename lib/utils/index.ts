@@ -1,10 +1,11 @@
-import type { AddPostFormValues, Post } from '$lib/types'
+import type { Post } from '$lib/types'
 import axios from 'axios'
 import {
   type FirebaseStorage,
   ref,
   uploadBytes,
   getDownloadURL,
+  deleteObject,
 } from 'firebase/storage'
 
 export async function uploadImage(
@@ -29,6 +30,16 @@ export async function fetchPost(id: number): Promise<Post> {
   return data
 }
 
-export async function deletePost(id: number) {
-  await axios.delete(`/api/posts/${id}`)
+export async function deletePost({
+  post,
+  storage,
+}: {
+  post: Post
+  storage: FirebaseStorage
+}) {
+  const ext = post.photoUrl?.match(/\.(png|jpg|jpeg)\?/)?.[1]
+  if (ext)
+    await deleteObject(ref(storage, `posts/${post.authorId}/${post.id}.${ext}`))
+  const { data } = await axios.delete(`/api/posts/${post.id}`)
+  return data
 }
