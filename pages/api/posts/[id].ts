@@ -31,11 +31,21 @@ export default withAuthApi(async ({ method, body, query }, res) => {
     if (!photoUrl?.trim?.()) return res.status(400).end()
 
     try {
-      const posts = await prisma.post.update({
+      const post = await prisma.post.update({
         where: { id: +id },
         data: { photoUrl: body.photoUrl },
+        include: {
+          author: {
+            select: {
+              email: true,
+              id: true,
+              image: true,
+              name: true,
+            },
+          },
+        },
       })
-      return res.status(200).json(posts)
+      return res.status(200).json(post)
     } catch (error) {
       console.error(error)
       return res.status(500).json(error)
@@ -44,8 +54,8 @@ export default withAuthApi(async ({ method, body, query }, res) => {
 
   if (method === 'DELETE') {
     try {
-      await prisma.post.delete({ where: { id: +id } })
-      return res.status(200).json({ success: true })
+      const post = await prisma.post.delete({ where: { id: +id } })
+      return res.status(200).json(post)
     } catch (error) {
       return res.status(500).json(error)
     }

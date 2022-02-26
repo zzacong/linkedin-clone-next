@@ -64,6 +64,10 @@
     @apply cursor-pointer transition-colors duration-200 hover:bg-black/5 focus:bg-black/5 dark:hover:bg-gray-100/10 dark:focus:bg-gray-100/10;
   }
 
+  .label-btn {
+    @apply cursor-pointer transition-colors duration-200 focus-within:bg-black/5 focus-within:outline focus-within:outline-2 focus-within:outline-blue-600 hover:bg-black/5 dark:focus-within:bg-gray-100/10 dark:hover:bg-gray-100/10;
+  }
+
   .sidebar-link {
     @apply block px-2 py-1 text-xs font-semibold;
   }

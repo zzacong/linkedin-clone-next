@@ -1,4 +1,11 @@
-import { MouseEventHandler, useCallback, useEffect, useState } from 'react'
+import type { AddPostFormValues, Post } from '$lib/types'
+import {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import Image from 'next/image'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
@@ -20,9 +27,12 @@ import { uploadImage } from '$lib/utils'
 import { storage } from '$lib/config/firebase'
 import Avatar from '$components/Avatar'
 import { modalState } from '$lib/atoms'
+import { useQueryClient } from 'react-query'
 
 export default function AddPostForm() {
+  const queryClient = useQueryClient()
   const setModalOpen = useSetRecoilState(modalState)
+  const imageButton = useRef<HTMLButtonElement>(null)
   const [dataUrl, setDataUrl] = useState('')
   const { data: session } = useSession()
   const {
@@ -33,10 +43,10 @@ export default function AddPostForm() {
     formState,
     reset,
     resetField,
-  } = useForm<FormValues>()
+  } = useForm<AddPostFormValues>()
   const { isSubmitting } = formState
 
-  const onCreatePost: SubmitHandler<FormValues> = useCallback(
+  const onCreatePost: SubmitHandler<AddPostFormValues> = useCallback(
     async data => {
       if (!session?.user?.uid) return
       try {
@@ -49,17 +59,18 @@ export default function AddPostForm() {
           session.user.uid,
           res.id.toString()
         )
-        await axios.patch(`/api/posts/${res.id}`, {
+        const { data: post } = await axios.patch(`/api/posts/${res.id}`, {
           photoUrl: downloadURL,
         })
         reset()
         setModalOpen(false)
+        queryClient.setQueryData<Post[]>('posts', old => [post, ...(old ?? [])])
       } catch (error) {
         console.error(error)
         alert(error)
       }
     },
-    [reset, session?.user?.uid, setModalOpen]
+    [queryClient, reset, session?.user?.uid, setModalOpen]
   )
 
   const onSelectImage: ChangeHandler = async e => {
@@ -142,14 +153,14 @@ export default function AddPostForm() {
 
           <div className="flex justify-between pt-3 pb-4 pl-4 pr-6">
             <div className="flex items-center">
-              <label className="t-secondary card-btn block rounded-full p-2">
+              <label className="t-secondary card-btn label-btn block rounded-full p-2">
                 <span className="sr-only">Choose image</span>
                 <input
                   type="file"
                   {...register('image', {
                     onChange: onSelectImage,
                   })}
-                  className="hidden"
+                  className="sr-only"
                 />
                 <MdOutlinePhotoSizeSelectActual size={24} />
               </label>
@@ -194,9 +205,3 @@ const ClearImageButton = ({ onClick }: { onClick: MouseEventHandler }) => (
     <MdClose size={24} />
   </button>
 )
-
-type FormValues = {
-  input: string
-  image: FileList
-}
-//

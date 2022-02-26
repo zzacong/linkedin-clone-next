@@ -35,3 +35,8 @@ export interface Post extends PrismaPost {
   author: PrismsUser
   createdAt: string
 }
+
+export type AddPostFormValues = {
+  input: string
+  image: FileList
+}

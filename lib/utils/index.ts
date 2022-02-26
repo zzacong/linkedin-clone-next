@@ -1,4 +1,4 @@
-import type { Post } from '$lib/types'
+import type { AddPostFormValues, Post } from '$lib/types'
 import axios from 'axios'
 import {
   type FirebaseStorage,
