@@ -28,7 +28,7 @@ export default function Modal() {
           static
           open={isOpen}
           onClose={() => setIsOpen(false)}
-          className="fixed inset-0 z-50"
+          className="fixed inset-0 z-20 overflow-y-auto p-4 pt-[10vh]"
         >
           <Dialog.Overlay
             as={motion.div}
@@ -39,55 +39,57 @@ export default function Modal() {
             exit={{ opacity: 0 }}
           />
 
-          <div className="flex min-h-screen items-center justify-center">
-            {modalType === 'dropIn' && (
-              <motion.div
-                className="t-primary mx-6 flex max-h-[calc(100vh-160px)] w-full max-w-xl flex-col justify-center overflow-y-hidden rounded-xl bg-white dark:bg-dblue"
-                variants={dropIn}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-              >
-                <header className="flex items-center justify-between border-b border-black/10 py-4 pl-6 pr-4 dark:border-gray-500">
-                  <Dialog.Title className="text-xl">Create a post</Dialog.Title>
-                  <Dialog.Description className="sr-only">
-                    Create a new LinkedIn post
-                  </Dialog.Description>
-                  <CloseButton />
-                </header>
-
-                <AddPostForm />
-              </motion.div>
-            )}
-
-            {modalType == 'gifYouUp' && (
-              <motion.div
-                variants={gifYouUp}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="relative mx-6 flex h-screen max-h-[calc(100vh-160px)] w-full max-w-6xl rounded-lg"
-              >
-                <Dialog.Title className="sr-only">View post</Dialog.Title>
+          {modalType === 'dropIn' && (
+            <motion.div
+              // position: relative to bring the modal to front
+              className="t-primary relative mx-auto flex max-h-[80vh] w-full max-w-xl flex-col justify-center overflow-y-hidden rounded-xl bg-white dark:bg-dblue"
+              variants={dropIn}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <header className="flex items-center justify-between border-b border-black/10 py-4 pl-6 pr-4 dark:border-gray-500">
+                <Dialog.Title className="text-xl">Create a post</Dialog.Title>
                 <Dialog.Description className="sr-only">
-                  View a post
+                  Create a new LinkedIn post
                 </Dialog.Description>
-                {/* left panel */}
-                <div className="relative h-full flex-grow rounded-l-lg bg-dblue">
+                <CloseButton />
+              </header>
+
+              <AddPostForm />
+            </motion.div>
+          )}
+
+          {modalType == 'gifYouUp' && (
+            <motion.div
+              variants={gifYouUp}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="relative mx-auto flex h-screen max-h-[70vh] w-full max-w-6xl rounded-lg"
+            >
+              <Dialog.Title className="sr-only">View post</Dialog.Title>
+              <Dialog.Description className="sr-only">
+                View a post
+              </Dialog.Description>
+              {/* left panel */}
+              <div className="relative h-full flex-grow rounded-l-lg bg-dblue">
+                {post?.photoUrl && (
                   <Image
-                    src="https://images.unsplash.com/photo-1645363710209-aad3e68d0e6f"
-                    alt="placeholder image"
+                    src={post?.photoUrl}
+                    alt={post.input}
                     layout="fill"
                     objectFit="contain"
                   />
-                </div>
+                )}
+              </div>
 
-                <div className="w-1/3 rounded-r-lg bg-white dark:border-l-[0.5px] dark:border-gray-500 dark:bg-dblue">
-                  <Post post={post!} modalPost />
-                </div>
-              </motion.div>
-            )}
-          </div>
+              {/* Right panel */}
+              <div className="w-1/3 rounded-r-lg bg-white dark:border-l-[0.5px] dark:border-gray-500 dark:bg-dblue">
+                <Post post={post!} modalPost />
+              </div>
+            </motion.div>
+          )}
         </Dialog>
       )}
     </AnimatePresence>
