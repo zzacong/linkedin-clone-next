@@ -1,11 +1,5 @@
 import type { AddPostFormValues, Post } from '$lib/types'
-import {
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { type MouseEventHandler, useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
@@ -32,7 +26,6 @@ import { modalState } from '$lib/atoms'
 export default function AddPostForm() {
   const queryClient = useQueryClient()
   const setModalOpen = useSetRecoilState(modalState)
-  const imageButton = useRef<HTMLButtonElement>(null)
   const [dataUrl, setDataUrl] = useState('')
   const { data: session } = useSession()
   const {
