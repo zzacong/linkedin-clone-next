@@ -9,6 +9,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { useWarnClone } from '$lib/hooks'
 
 import '$styles/globals.css'
 
@@ -17,6 +18,8 @@ export default function MyApp({
   pageProps: { session, dehydratedState, ...pageProps },
 }: AppProps) {
   const queryClient = useRef(new QueryClient())
+
+  useWarnClone()
 
   return (
     <>

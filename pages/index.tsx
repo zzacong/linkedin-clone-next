@@ -13,11 +13,8 @@ import {
 import HeaderLink from '$components/HeaderLink'
 import linkedin_logo from '$public/linkedin_logo.svg'
 import hero_svg from '$public/hero.svg'
-import { useWarnClone } from '$lib/hooks'
 
 export default function Home() {
-  useWarnClone()
-
   return (
     <div>
       <Head>

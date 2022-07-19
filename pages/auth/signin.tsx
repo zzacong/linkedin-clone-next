@@ -23,7 +23,7 @@ export default function SignIn() {
   return (
     <div className="t-black flex min-h-screen flex-col bg-lstone">
       <Head>
-        <title>LinkedIn Login, Sign In | Next</title>
+        <title>LinkedIn Clone Login, Sign In | Next</title>
       </Head>
 
       <header>
