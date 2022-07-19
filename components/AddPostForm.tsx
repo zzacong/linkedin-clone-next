@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { type SubmitHandler, useForm, ChangeHandler } from 'react-hook-form'
 import { useSetAtom } from 'jotai'
-import { useQueryClient } from 'react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import {
   MdArticle,
   MdBarChart,
@@ -63,7 +63,7 @@ export default function AddPostForm() {
         }
         reset()
         setModalOpen(false)
-        queryClient.setQueryData<Post[]>('posts', old => [
+        queryClient.setQueryData<Post[]>(['posts'], old => [
           newPost,
           ...(old ?? []),
         ])

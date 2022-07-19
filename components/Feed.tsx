@@ -1,8 +1,8 @@
-import AddPost from '$components/AddPost'
-import { useQuery } from 'react-query'
-import { fetchPosts } from '$lib/utils'
-import Post from '$components/Post'
+import { useQuery } from '@tanstack/react-query'
 import { MdArrowDropDown } from 'react-icons/md'
+import { fetchPosts } from '$lib/utils'
+import AddPost from '$components/AddPost'
+import Post from '$components/Post'
 
 export default function Feed() {
   const {
@@ -10,7 +10,7 @@ export default function Feed() {
     isError,
     isLoading,
     error,
-  } = useQuery('posts', fetchPosts, {
+  } = useQuery(['posts'], fetchPosts, {
     staleTime: 5000,
   })
 

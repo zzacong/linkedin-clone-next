@@ -5,7 +5,7 @@ import Head from 'next/head'
 import axios from 'axios'
 import { useSetAtom } from 'jotai'
 import { getSession } from 'next-auth/react'
-import { dehydrate, QueryClient } from 'react-query'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 
 import { prisma } from '$lib/config/prisma'
 import Feed from '$components/Feed'
@@ -65,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   // Get posts on SSR
   const queryClient = new QueryClient()
-  await queryClient.prefetchQuery('posts', async () => {
+  await queryClient.prefetchQuery(['posts'], async () => {
     const posts = await prisma.post.findMany({
       include: {
         author: {

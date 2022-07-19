@@ -3,8 +3,12 @@ import { useRef } from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { SessionProvider } from 'next-auth/react'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import '$styles/globals.css'
 

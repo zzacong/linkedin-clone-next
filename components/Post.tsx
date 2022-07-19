@@ -18,7 +18,7 @@ import {
 import { RiSendPlaneFill } from 'react-icons/ri'
 import { HiOutlineReply } from 'react-icons/hi'
 import { IoIosMore } from 'react-icons/io'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { modalPostState, modalState, modalTypeState } from '$lib/atoms'
 import Avatar from '$components/Avatar'
@@ -159,7 +159,7 @@ const PostMenu = ({ post }: { post: Props['post'] }) => {
     onSuccess: deletedPost => {
       console.log('deleted', deletedPost)
       setModalOpen(false)
-      client.setQueryData<Post[]>('posts', posts =>
+      client.setQueryData<Post[]>(['posts'], posts =>
         posts ? posts.filter(p => p.id !== deletedPost.id) : []
       )
     },
