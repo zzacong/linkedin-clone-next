@@ -3,7 +3,7 @@ import { Fragment, type ReactNode, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import clsx from 'clsx'
-import { useSetRecoilState } from 'recoil'
+import { useSetAtom } from 'jotai'
 import { useSession } from 'next-auth/react'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { Menu, Transition } from '@headlessui/react'
@@ -29,9 +29,9 @@ import { storage } from '$lib/config/firebase'
 export default function Post({ post, modalPost = false }: Props) {
   const [liked, setLiked] = useState(false)
   const [showAll, setShowAll] = useState(false)
-  const setModalOpen = useSetRecoilState(modalState)
-  const setModalType = useSetRecoilState(modalTypeState)
-  const setModalPost = useSetRecoilState(modalPostState)
+  const setModalOpen = useSetAtom(modalState)
+  const setModalType = useSetAtom(modalTypeState)
+  const setModalPost = useSetAtom(modalPostState)
 
   return (
     <div
@@ -172,7 +172,7 @@ const PostMenu = ({ post }: { post: Props['post'] }) => {
     },
   })
   const { data: session } = useSession()
-  const setModalOpen = useSetRecoilState(modalState)
+  const setModalOpen = useSetAtom(modalState)
   const [isDeleting, setIsDeleting] = useState(false)
 
   const onDeletePost = useCallback(async () => {

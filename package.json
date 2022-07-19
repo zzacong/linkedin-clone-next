@@ -29,6 +29,7 @@
     "firebase": "^9.7.0",
     "firebase-admin": "^10.1.0",
     "framer-motion": "^6.3.3",
+    "jotai": "^1.7.5",
     "next": "12.1.0",
     "next-auth": "^4.3.4",
     "next-themes": "^0.0.15",

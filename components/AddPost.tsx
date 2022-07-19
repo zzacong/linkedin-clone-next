@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useSetAtom } from 'jotai'
 import { motion } from 'framer-motion'
 import {
   MdArticle,
@@ -12,8 +12,8 @@ import Avatar from '$components/Avatar'
 import { modalState, modalTypeState } from '$lib/atoms'
 
 export default function AddPost() {
-  const setModalOpen = useSetRecoilState(modalState)
-  const setModalType = useSetRecoilState(modalTypeState)
+  const setModalOpen = useSetAtom(modalState)
+  const setModalType = useSetAtom(modalTypeState)
 
   const openModal = useCallback(() => {
     setModalOpen(true)

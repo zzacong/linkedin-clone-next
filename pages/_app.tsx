@@ -3,7 +3,6 @@ import { useRef } from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { SessionProvider } from 'next-auth/react'
-import { RecoilRoot } from 'recoil'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
@@ -30,9 +29,7 @@ export default function MyApp({
         <QueryClientProvider client={queryClient.current}>
           <Hydrate state={dehydratedState}>
             <ThemeProvider attribute="class">
-              <RecoilRoot>
-                <Component {...pageProps} />
-              </RecoilRoot>
+              <Component {...pageProps} />
             </ThemeProvider>
           </Hydrate>
           <ReactQueryDevtools />

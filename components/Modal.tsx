@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { useSession } from 'next-auth/react'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Dialog } from '@headlessui/react'
 import { MdClose } from 'react-icons/md'
@@ -12,10 +11,9 @@ import { modalPostState, modalState, modalTypeState } from '$lib/atoms'
 
 export default function Modal() {
   const [isClient, setIsClient] = useState(false)
-  const { data: session } = useSession()
-  const [isOpen, setIsOpen] = useRecoilState(modalState)
-  const modalType = useRecoilValue(modalTypeState)
-  const post = useRecoilValue(modalPostState)
+  const [isOpen, setIsOpen] = useAtom(modalState)
+  const modalType = useAtomValue(modalTypeState)
+  const post = useAtomValue(modalPostState)
 
   useEffect(() => setIsClient(true), [])
 
@@ -97,7 +95,7 @@ export default function Modal() {
 }
 
 const CloseButton = () => {
-  const setIsOpen = useSetRecoilState(modalState)
+  const setIsOpen = useSetAtom(modalState)
 
   return (
     <button

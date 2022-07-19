@@ -1,11 +1,5 @@
-import { atom } from 'recoil'
+import { atom } from 'jotai'
 
-export const modalState = atom({
-  key: 'modalState',
-  default: false,
-})
+export const modalState = atom(false)
 
-export const modalTypeState = atom({
-  key: 'modalTypeState',
-  default: 'dropIn',
-})
+export const modalTypeState = atom('dropIn')

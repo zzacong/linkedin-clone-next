@@ -1,7 +1,4 @@
 import type { Post } from '$lib/types'
-import { atom } from 'recoil'
+import { atom } from 'jotai'
 
-export const modalPostState = atom<Post | undefined>({
-  key: 'modalPostState',
-  default: undefined,
-})
+export const modalPostState = atom<Post | undefined>(undefined)

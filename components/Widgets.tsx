@@ -1,7 +1,7 @@
 import type { Article } from '$lib/types'
 import { useState } from 'react'
 import clsx from 'clsx'
-import { useRecoilValue } from 'recoil'
+import { useAtomValue } from 'jotai'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { BsInfoSquareFill } from 'react-icons/bs'
 import { MdCircle } from 'react-icons/md'
@@ -10,7 +10,7 @@ import { HiOutlineChevronDown, HiOutlineChevronUp } from 'react-icons/hi'
 import { articlesState } from '$lib/atoms'
 
 export default function Widgets() {
-  const articles = useRecoilValue(articlesState)
+  const articles = useAtomValue(articlesState)
   const [showMore, setShowMore] = useState(false)
 
   return (

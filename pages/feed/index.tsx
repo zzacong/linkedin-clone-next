@@ -3,7 +3,7 @@ import type { Article } from '$lib/types'
 import { useEffect } from 'react'
 import Head from 'next/head'
 import axios from 'axios'
-import { useSetRecoilState } from 'recoil'
+import { useSetAtom } from 'jotai'
 import { getSession } from 'next-auth/react'
 import { dehydrate, QueryClient } from 'react-query'
 
@@ -17,7 +17,7 @@ import { articlesState } from '$lib/atoms'
 import Footer from '$components/Footer'
 
 export default function FeedPage({ articles }: Props) {
-  const setArticles = useSetRecoilState(articlesState)
+  const setArticles = useSetAtom(articlesState)
 
   useEffect(() => {
     setArticles(articles)

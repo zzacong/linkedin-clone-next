@@ -4,7 +4,7 @@ import Image from 'next/image'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { type SubmitHandler, useForm, ChangeHandler } from 'react-hook-form'
-import { useSetRecoilState } from 'recoil'
+import { useSetAtom } from 'jotai'
 import { useQueryClient } from 'react-query'
 import {
   MdArticle,
@@ -25,7 +25,7 @@ import { modalState } from '$lib/atoms'
 
 export default function AddPostForm() {
   const queryClient = useQueryClient()
-  const setModalOpen = useSetRecoilState(modalState)
+  const setModalOpen = useSetAtom(modalState)
   const [dataUrl, setDataUrl] = useState('')
   const { data: session } = useSession()
   const {

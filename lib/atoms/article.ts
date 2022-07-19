@@ -1,7 +1,4 @@
 import type { Article } from '$lib/types'
-import { atom } from 'recoil'
+import { atom } from 'jotai'
 
-export const articlesState = atom<Article[]>({
-  key: 'articlesState',
-  default: [] as Article[],
-})
+export const articlesState = atom<Article[]>([])
