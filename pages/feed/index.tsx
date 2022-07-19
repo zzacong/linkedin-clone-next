@@ -1,11 +1,13 @@
 import type { GetServerSideProps } from 'next'
 import type { Article } from '$lib/types'
-import { useEffect } from 'react'
 import Head from 'next/head'
 import axios from 'axios'
+import { useEffect } from 'react'
 import { useSetAtom } from 'jotai'
-import { getSession } from 'next-auth/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+
+import { unstable_getServerSession } from 'next-auth/next'
+import { authOptions } from '../api/auth/[...nextauth]'
 
 import { prisma } from '$lib/config/prisma'
 import Feed from '$components/Feed'
@@ -26,7 +28,7 @@ export default function FeedPage({ articles }: Props) {
   return (
     <div className="h-screen overflow-y-scroll bg-lstone transition-all dark:bg-black">
       <Head>
-        <title>Feed | LinkedIn | Next</title>
+        <title>Feed | LinkedIn Clone | Next</title>
       </Head>
       <Header />
       <div className="px-4">
@@ -51,17 +53,9 @@ export default function FeedPage({ articles }: Props) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // Check if the user is authenticated on the server...
-  const session = await getSession(context)
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/',
-      },
-    }
-  }
+  const session = await unstable_getServerSession(req, res, authOptions)
 
   // Get posts on SSR
   const queryClient = new QueryClient()

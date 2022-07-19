@@ -1,20 +1,32 @@
-import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getProviders, signIn } from 'next-auth/react'
+import { useQuery } from '@tanstack/react-query'
 
 import linkedin_logo from '$public/linkedin_logo.svg'
 import google_logo from '$public/Google_logo.svg'
 
-export default function SignIn({ providers }: PageProps) {
+export default function SignIn() {
+  const { data: providers } = useQuery(
+    ['providers'],
+    async () => {
+      return await getProviders()
+    },
+    {
+      refetchInterval: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
+  )
+
   return (
     <div className="t-black flex min-h-screen flex-col bg-lstone">
       <Head>
         <title>LinkedIn Login, Sign In | Next</title>
       </Head>
 
-      <header className="">
+      <header>
         <div className="mx-auto flex pl-14 pt-8">
           <Link href="/" passHref>
             <a className="block">
@@ -29,38 +41,42 @@ export default function SignIn({ providers }: PageProps) {
         </div>
       </header>
 
-      <main className="mx-auto grid min-h-screen w-full max-w-6xl flex-grow place-items-center">
+      <main className="mx-auto grid w-full max-w-6xl flex-1 flex-grow place-items-center px-4">
         <div className="flex flex-col items-center">
-          <h1 className="p-6 text-3xl font-semibold leading-[1.25]">
+          <h1 className="p-6 text-center text-3xl font-semibold leading-[1.25]">
             Make the most of your professional life
           </h1>
-          <div className="flex h-[224px] w-[432px] max-w-xl flex-col rounded-lg bg-white p-6 pt-10 text-center shadow-lg">
+
+          <div className="flex h-[224px] w-full max-w-xl flex-col rounded-lg bg-white p-6 pt-10 text-center shadow-lg md:w-[432px]">
             <div className="flex flex-1 flex-col items-stretch justify-center space-y-5">
               <button
                 onClick={() => alert('Not implemented')}
                 className="flex h-[52px] items-center justify-center rounded-full bg-btnblue px-6 shadow-sm hover:bg-btnbluedark focus:bg-btnbluedark"
               >
-                <span className="text-base font-semibold text-white">
+                <span className="text-sm font-semibold text-white md:text-base">
                   Continue with email
                 </span>
               </button>
-              {Object.values(providers).map(provider => (
-                <button
-                  key={provider.name}
-                  onClick={() => signIn(provider.id, { callbackUrl: '/feed' })}
-                  className="flex h-[52px] items-center justify-center rounded-full border border-gray-500 bg-white px-6 shadow-sm  hover:border-2 hover:bg-gray-100 focus:bg-gray-100 "
-                >
-                  <Image
-                    src={google_logo}
-                    alt="Google logo"
-                    width={24}
-                    height={24}
-                  />
-                  <span className="t-black-light ml-2 text-base font-semibold">
-                    Continue with {provider.name}
-                  </span>
-                </button>
-              ))}
+              {providers &&
+                Object.values(providers).map(provider => (
+                  <button
+                    key={provider.name}
+                    onClick={() =>
+                      signIn(provider.id, { callbackUrl: '/feed' })
+                    }
+                    className="flex h-[52px] items-center justify-center rounded-full border border-gray-500 bg-white px-6 shadow-sm hover:border-2  hover:bg-gray-100 focus:bg-gray-100"
+                  >
+                    <Image
+                      src={google_logo}
+                      alt="Google logo"
+                      width={24}
+                      height={24}
+                    />
+                    <span className="t-black-light ml-2 text-sm font-semibold md:text-base">
+                      Continue with {provider.name}
+                    </span>
+                  </button>
+                ))}
             </div>
             <p className="pt-4">
               Already on LinkedIn?{' '}
@@ -79,14 +95,4 @@ export default function SignIn({ providers }: PageProps) {
       </main>
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async context => {
-  const providers = await getProviders()
-
-  return { props: { providers } }
-}
-
-type PageProps = {
-  providers: ReturnType<typeof getProviders>
 }
