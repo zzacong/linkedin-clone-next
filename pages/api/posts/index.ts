@@ -1,9 +1,8 @@
+import { z } from 'zod'
 import { prisma } from '$lib/config/prisma'
 import { withAuthApi } from '$lib/utils/api'
 
 export default withAuthApi(async ({ method, body }, res, session) => {
-  const { input, photoUrl } = body
-
   // Get all posts
   if (method === 'GET') {
     try {
@@ -29,30 +28,40 @@ export default withAuthApi(async ({ method, body }, res, session) => {
 
   // Create a new post
   if (method === 'POST') {
-    if (!input?.trim?.()) return res.status(400).end()
-
     try {
-      const post = await prisma.post.create({
-        data: {
-          input: input.trim(),
-          authorId: session?.user?.uid ?? '',
-          photoUrl: photoUrl?.trim?.(),
-        },
-        include: {
-          author: {
-            select: {
-              email: true,
-              id: true,
-              image: true,
-              name: true,
+      const { input, photoUrl } = z
+        .object({
+          input: z.string().min(1),
+          photoUrl: z.string(),
+        })
+        .parse(body)
+
+      try {
+        const post = await prisma.post.create({
+          data: {
+            input: input.trim(),
+            authorId: session?.user?.uid ?? '',
+            photoUrl: photoUrl?.trim?.(),
+          },
+          include: {
+            author: {
+              select: {
+                email: true,
+                id: true,
+                image: true,
+                name: true,
+              },
             },
           },
-        },
-      })
-      res.status(201).json(post)
+        })
+        res.status(201).json(post)
+      } catch (error) {
+        console.error(error)
+        res.status(500).json(error)
+      }
     } catch (error) {
       console.error(error)
-      res.status(500).json(error)
+      return res.status(400).json(error)
     }
   }
 
