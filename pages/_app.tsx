@@ -21,10 +21,10 @@ export default function MyApp({
   return (
     <>
       <Head>
-        <title>LinkedIn | Next</title>
+        <title>LinkedIn Clone | Next</title>
         <meta
           name="description"
-          content="A LinkedIn clone built with Next.js"
+          content="A LinkedIn clone built with Next.js for learning purpose. THIS IS NOT THE REAL LinkedIn."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

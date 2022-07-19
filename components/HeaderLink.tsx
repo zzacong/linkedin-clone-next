@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 
@@ -6,7 +6,7 @@ const Avatar = dynamic(() => import('$components/Avatar'))
 
 export default function HeaderLink({
   children,
-  Icon = Fragment,
+  Icon,
   avatar = false,
   feed = false,
   active = false,
@@ -23,7 +23,11 @@ export default function HeaderLink({
         active && 'text-black dark:text-white'
       )}
     >
-      {avatar ? <Avatar size={24} /> : <Icon className="mui-icon" />}
+      {avatar ? (
+        <Avatar size={24} />
+      ) : Icon ? (
+        <Icon className="mui-icon" />
+      ) : null}
 
       <h4
         className={clsx(
