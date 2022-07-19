@@ -39,7 +39,7 @@ export default function MyApp({
               <Component {...pageProps} />
             </ThemeProvider>
           </Hydrate>
-          <ReactQueryDevtools />
+          {process.env.NODE_ENV !== 'production' && <ReactQueryDevtools />}
         </QueryClientProvider>
       </SessionProvider>
     </>
