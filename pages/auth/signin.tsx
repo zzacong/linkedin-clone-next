@@ -91,6 +91,9 @@ export default function SignIn() {
               Get help
             </a>
           </p>
+          <p className="mb-6 text-sm font-semibold">
+            Please note this site is a CLONE built for learning purpose only.
+          </p>
         </div>
       </main>
     </div>

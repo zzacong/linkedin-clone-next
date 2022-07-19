@@ -49,7 +49,7 @@ export default function Home() {
         </nav>
       </header>
 
-      <main className="flex flex-col items-center overflow-hidden ">
+      <main className="flex flex-col items-center overflow-hidden">
         <section className="relative mx-auto flex min-h-[560px] max-w-6xl flex-col flex-nowrap items-center px-4 pt-10 md:flex-row">
           <div className="w-full flex-shrink-0 space-y-6 self-start pr-0 md:w-[55%] md:pr-12 lg:space-y-10">
             <h1 className="max-w-xl text-3xl font-extralight !leading-snug text-amber-800/80 md:text-5xl">
@@ -80,6 +80,10 @@ export default function Home() {
             />
           </div>
         </section>
+
+        <p className="mb-6 mt-14 text-sm font-semibold">
+          Please note this site is a CLONE built for learning purpose only.
+        </p>
       </main>
     </div>
   )
