@@ -20,6 +20,8 @@
       "$components/*": ["components/*"],
       "$lib": ["lib"],
       "$lib/*": ["lib/*"],
+      "$pages": ["pages"],
+      "$pages/*": ["pages/*"],
       "$public": ["../public"],
       "$public/*": ["../public/*"],
       "$styles": ["styles"],
