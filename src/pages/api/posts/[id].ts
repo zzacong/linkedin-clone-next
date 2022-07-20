@@ -5,7 +5,6 @@ import { withAuthApi } from '$lib/utils/api'
 export default withAuthApi(async ({ method, body, query }, res) => {
   try {
     const id = z.string().parse(query.id)
-    const photoUrl = z.string().parse(body.photoUrl)
 
     if (method === 'GET') {
       try {
@@ -30,12 +29,11 @@ export default withAuthApi(async ({ method, body, query }, res) => {
     }
 
     if (method === 'PATCH') {
-      if (!photoUrl?.trim?.()) return res.status(400).end()
-
       try {
+        const photoUrl = z.string().url().parse(body.photoUrl)
         const post = await prisma.post.update({
           where: { id: +id },
-          data: { photoUrl: body.photoUrl },
+          data: { photoUrl },
           include: {
             author: {
               select: {
@@ -50,6 +48,7 @@ export default withAuthApi(async ({ method, body, query }, res) => {
         return res.status(200).json(post)
       } catch (error) {
         console.error(error)
+        if (error instanceof z.ZodError) return res.status(400).json(error)
         return res.status(500).json(error)
       }
     }
@@ -64,7 +63,7 @@ export default withAuthApi(async ({ method, body, query }, res) => {
     }
   } catch (error) {
     console.error(error)
-    return res.status(400).json(error)
+    return res.status(404).json(error)
   }
 
   return res.status(405).end()

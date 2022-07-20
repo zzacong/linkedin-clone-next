@@ -31,17 +31,17 @@ export default withAuthApi(async ({ method, body }, res, session) => {
     try {
       const { input, photoUrl } = z
         .object({
-          input: z.string().min(1),
-          photoUrl: z.string(),
+          input: z.string().min(1).trim(),
+          photoUrl: z.string().url().optional(),
         })
         .parse(body)
 
       try {
         const post = await prisma.post.create({
           data: {
-            input: input.trim(),
+            input,
+            photoUrl,
             authorId: session?.user?.uid ?? '',
-            photoUrl: photoUrl?.trim?.(),
           },
           include: {
             author: {
