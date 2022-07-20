@@ -14,14 +14,14 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
       "$components": ["components"],
       "$components/*": ["components/*"],
       "$lib": ["lib"],
       "$lib/*": ["lib/*"],
-      "$public": ["public"],
-      "$public/*": ["public/*"],
+      "$public": ["../public"],
+      "$public/*": ["../public/*"],
       "$styles": ["styles"],
       "$styles/*": ["styles/*"]
     }
