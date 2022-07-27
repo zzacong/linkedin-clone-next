@@ -1,24 +1,16 @@
+import type { GetServerSideProps } from 'next'
+import type { AsyncReturnType } from '$lib/types'
+
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getProviders, signIn } from 'next-auth/react'
-import { useQuery } from '@tanstack/react-query'
 
 import linkedin_logo from '$public/linkedin_logo.svg'
 import google_logo from '$public/Google_logo.svg'
 
-export default function SignIn() {
-  const { data: providers } = useQuery(
-    ['providers'],
-    async () => {
-      return await getProviders()
-    },
-    {
-      refetchInterval: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-    }
-  )
+export default function SignInPage({ providers }: SignInPageProps) {
+  console.log('client runtime -->', process.env.NEXT_RUNTIME)
 
   return (
     <div className="t-black flex min-h-screen flex-col bg-lstone">
@@ -98,4 +90,21 @@ export default function SignIn() {
       </main>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  console.log('server runtime -->', process.env.NEXT_RUNTIME)
+  return {
+    props: {
+      providers: await getProviders(),
+    },
+  }
+}
+
+export const config = {
+  runtime: 'experimental-edge',
+}
+
+interface SignInPageProps {
+  providers: AsyncReturnType<typeof getProviders>
 }
