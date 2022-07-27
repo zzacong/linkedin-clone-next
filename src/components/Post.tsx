@@ -157,7 +157,6 @@ const PostMenu = ({ post }: { post: Props['post'] }) => {
   const { mutate } = useMutation(deletePost, {
     onMutate: () => setIsDeleting(true),
     onSuccess: deletedPost => {
-      console.log('deleted', deletedPost)
       setModalOpen(false)
       client.setQueryData<Post[]>(['posts'], posts =>
         posts ? posts.filter(p => p.id !== deletedPost.id) : []

@@ -10,8 +10,6 @@ import linkedin_logo from '$public/linkedin_logo.svg'
 import google_logo from '$public/Google_logo.svg'
 
 export default function SignInPage({ providers }: SignInPageProps) {
-  console.log('client runtime -->', process.env.NEXT_RUNTIME)
-
   return (
     <div className="t-black flex min-h-screen flex-col bg-lstone">
       <Head>
@@ -93,10 +91,15 @@ export default function SignInPage({ providers }: SignInPageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  console.log('server runtime -->', process.env.NEXT_RUNTIME)
+  const providerEndpoint = new URL(
+    '/api/auth/providers',
+    process.env.NEXTAUTH_URL
+  ).toString()
+  const providers = await fetch(providerEndpoint).then(resp => resp.json())
+
   return {
     props: {
-      providers: await getProviders(),
+      providers,
     },
   }
 }
