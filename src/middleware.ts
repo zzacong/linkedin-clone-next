@@ -3,17 +3,17 @@ import { NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req })
+  const isLoggedIn = !!(await getToken({ req }))
 
   if (
     (req.nextUrl.pathname.startsWith('/auth') ||
       req.nextUrl.pathname === '/') &&
-    token
+    isLoggedIn
   ) {
     return NextResponse.redirect(new URL('/feed', req.url))
   }
 
-  if (req.nextUrl.pathname.startsWith('/feed') && !token)
+  if (req.nextUrl.pathname.startsWith('/feed') && !isLoggedIn)
     return NextResponse.redirect(new URL('/', req.url))
 }
 
