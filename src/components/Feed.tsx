@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { MdArrowDropDown } from 'react-icons/md'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { fetchPosts } from '$lib/utils'
 import AddPost from '$components/AddPost'
 import Post from '$components/Post'
@@ -13,6 +14,7 @@ export default function Feed() {
   } = useQuery(['posts'], fetchPosts, {
     staleTime: 5000,
   })
+  const [parent] = useAutoAnimate<HTMLDivElement>()
 
   return (
     <div className="">
@@ -27,7 +29,7 @@ export default function Feed() {
           </div>
         </button>
       </div>
-      <div className="space-y-4">
+      <div ref={parent} className="space-y-4">
         {isLoading && <p>loading...</p>}
         {isError && error instanceof Error && <p>Error: {error?.message}</p>}
 
