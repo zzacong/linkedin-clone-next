@@ -1,5 +1,5 @@
-import type { GetServerSideProps } from 'next'
-import type { AsyncReturnType } from '$lib/types'
+// import type { GetServerSideProps } from 'next'
+// import type { AsyncReturnType } from '$lib/types'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -8,8 +8,15 @@ import { getProviders, signIn } from 'next-auth/react'
 
 import linkedin_logo from '$public/linkedin_logo.svg'
 import google_logo from '$public/Google_logo.svg'
+import { useQuery } from '@tanstack/react-query'
 
-export default function SignInPage({ providers }: SignInPageProps) {
+export default function SignInPage() {
+  const { data: providers } = useQuery(['auth.providers'], getProviders, {
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: false,
+  })
+
   return (
     <div className="t-black flex min-h-screen flex-col bg-lstone">
       <Head>
@@ -90,24 +97,24 @@ export default function SignInPage({ providers }: SignInPageProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const providerEndpoint = new URL(
-    '/api/auth/providers',
-    process.env.NEXTAUTH_URL
-  ).toString()
-  const providers = await fetch(providerEndpoint).then(resp => resp.json())
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const providerEndpoint = new URL(
+//     '/api/auth/providers',
+//     process.env.NEXTAUTH_URL
+//   ).toString()
+//   const providers = await fetch(providerEndpoint).then(resp => resp.json())
 
-  return {
-    props: {
-      providers,
-    },
-  }
-}
+//   return {
+//     props: {
+//       providers,
+//     },
+//   }
+// }
 
-export const config = {
-  runtime: 'experimental-edge',
-}
+// export const config = {
+//   runtime: 'experimental-edge',
+// }
 
-interface SignInPageProps {
-  providers: AsyncReturnType<typeof getProviders>
-}
+// interface SignInPageProps {
+//   providers: AsyncReturnType<typeof getProviders>
+// }
