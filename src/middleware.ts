@@ -3,7 +3,8 @@ import { NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 
 export async function middleware(req: NextRequest) {
-  const isLoggedIn = !!(await getToken({ req }))
+  const token = await getToken({ req })
+  const isLoggedIn = !!token
 
   if (
     (req.nextUrl.pathname.startsWith('/auth') ||
