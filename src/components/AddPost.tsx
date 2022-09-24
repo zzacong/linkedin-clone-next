@@ -21,7 +21,7 @@ export default function AddPost() {
   }, [setModalOpen, setModalType])
 
   return (
-    <div className="feed-card t-secondary bg-purple-100">
+    <div className="feed-card t-secondary">
       <div className="flex items-center p-4 pt-3">
         <a href="#" className="mr-2 flex rounded-full">
           <Avatar size={48} />
