@@ -29,24 +29,22 @@ export default function Header() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between py-1">
         {/* Left */}
         <div className="flex w-full max-w-xs items-center space-x-2">
-          <Link href="/" passHref>
-            <a className="flex">
-              {resolvedTheme === 'dark' ? (
-                <Image
-                  src={linkedin_icon_white}
-                  alt="LinkedIn logo"
-                  width={34}
-                  height={34}
-                />
-              ) : (
-                <Image
-                  src={linkedin_icon}
-                  alt="LinkedIn logo"
-                  width={34}
-                  height={34}
-                />
-              )}
-            </a>
+          <Link href="/" className="flex">
+            {resolvedTheme === 'dark' ? (
+              <Image
+                src={linkedin_icon_white}
+                alt="LinkedIn logo"
+                width={34}
+                height={34}
+              />
+            ) : (
+              <Image
+                src={linkedin_icon}
+                alt="LinkedIn logo"
+                width={34}
+                height={34}
+              />
+            )}
           </Link>
 
           <div className="relative rounded md:w-full">

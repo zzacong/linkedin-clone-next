@@ -25,15 +25,13 @@ export default function SignInPage() {
 
       <header>
         <div className="mx-auto flex pl-14 pt-8">
-          <Link href="/" passHref>
-            <a className="block">
-              <Image
-                src={linkedin_logo}
-                alt="LinkedIn logo"
-                height={34}
-                width={135}
-              />
-            </a>
+          <Link href="/" className="block">
+            <Image
+              src={linkedin_logo}
+              alt="LinkedIn logo"
+              height={34}
+              width={135}
+            />
           </Link>
         </div>
       </header>

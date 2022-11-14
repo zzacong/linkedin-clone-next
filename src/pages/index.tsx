@@ -23,10 +23,11 @@ export default function Home() {
 
       <header>
         <nav className="mx-auto flex max-w-6xl items-center justify-between py-4 px-4">
-          <Link href="/" passHref>
-            <a className="block h-[21px] w-[84px] lg:h-[34px] lg:w-[135px]">
-              <Image src={linkedin_logo} alt="LinkedIn logo" />
-            </a>
+          <Link
+            href="/"
+            className="block h-[21px] w-[84px] lg:h-[34px] lg:w-[135px]"
+          >
+            <Image src={linkedin_logo} alt="LinkedIn logo" />
           </Link>
 
           <div className="flex items-center divide-gray-300 sm:divide-x">

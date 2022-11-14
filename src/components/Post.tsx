@@ -41,22 +41,20 @@ export default function Post({ post, modalPost = false }: Props) {
       )}
     >
       <header className="mb-2 flex flex-nowrap items-center justify-between px-4 pt-3">
-        <Link href="#" passHref>
-          <a className="flex items-center">
-            <span className="flex">
-              <Avatar size={40} />
-            </span>
-            <div className="ml-2 flex-grow leading-5">
-              <p className="t-link dark:t-white hover:t-blue dark:hover:t-blue-light font-semibold text-black/90">
-                {post.author.name}
-              </p>
-              <p className="t-secondary text-xs">
-                {formatDistanceToNow(parseISO(post.createdAt as string), {
-                  addSuffix: true,
-                })}
-              </p>
-            </div>
-          </a>
+        <Link href="#" className="flex items-center">
+          <span className="flex">
+            <Avatar size={40} />
+          </span>
+          <div className="ml-2 flex-grow leading-5">
+            <p className="t-link dark:t-white hover:t-blue dark:hover:t-blue-light font-semibold text-black/90">
+              {post.author.name}
+            </p>
+            <p className="t-secondary text-xs">
+              {formatDistanceToNow(parseISO(post.createdAt as string), {
+                addSuffix: true,
+              })}
+            </p>
+          </div>
         </Link>
 
         {modalPost ? (
@@ -100,22 +98,21 @@ export default function Post({ post, modalPost = false }: Props) {
               setModalType('gifYouUp')
               setModalPost(post)
             }}
-            className="w-full"
+            className="my-4 block w-full"
           >
             <Image
               src={post.photoUrl}
               alt={post.input}
-              width="100%"
-              height="100%"
-              layout="responsive"
-              objectFit="cover"
-              objectPosition="center"
+              width={556}
+              height={556}
+              priority
+              className="max-h-[556px] object-contain"
             />
           </button>
         )}
       </div>
 
-      <div className="mx-3 mt-1 grid grid-flow-col border-t border-black/10	py-1 text-black/60 dark:border-gray-500">
+      <div className="mx-3 grid grid-flow-col border-t border-black/10	py-1 text-black/60 dark:border-gray-500">
         <button
           className={clsx('post-btn card-btn', liked && 'text-blue-500')}
           onClick={() => setLiked(p => !p)}

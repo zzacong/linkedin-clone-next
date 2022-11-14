@@ -1,4 +1,4 @@
 {
-  "*.{js,jsx,ts,tsx}": "yarn lint:staged",
-  "*.{json,scss}": "yarn format:staged"
+  "*.{js,jsx,ts,tsx}": "pnpm lint:staged",
+  "*.{json,scss}": "pnpm format:staged"
 }

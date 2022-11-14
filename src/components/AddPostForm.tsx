@@ -111,13 +111,13 @@ export default function AddPostForm() {
             </div>
           </div>
 
-          <label className="min-h-28 block px-4 pt-3">
+          <label className="block px-4 pt-3">
             <span className="sr-only">Post content</span>
             <textarea
               {...register('input')}
               rows={4}
               placeholder="What do you want to talk about?"
-              className="h-full w-full resize-none border-none bg-transparent p-2 placeholder-black/60 focus:ring-0 dark:placeholder-white/75"
+              className="w-full resize-none border-none bg-transparent p-2 placeholder-black/60 focus:ring-0 dark:placeholder-white/75"
             />
           </label>
 
@@ -133,11 +133,9 @@ export default function AddPostForm() {
               <Image
                 src={dataUrl}
                 alt="Uploaded image"
-                height="100%"
-                width="100%"
-                layout="responsive"
-                objectFit="contain"
-                className="rounded-lg"
+                width={576}
+                height={576}
+                className="max-h-96 rounded-lg object-contain"
               />
             </div>
           )}

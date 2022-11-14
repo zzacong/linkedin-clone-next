@@ -20,7 +20,7 @@ export default function Modal() {
   if (!isClient) return null
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <Dialog
           static
@@ -76,8 +76,8 @@ export default function Modal() {
                   <Image
                     src={post?.photoUrl}
                     alt={post.input}
-                    layout="fill"
-                    objectFit="contain"
+                    fill
+                    className="object-contain"
                   />
                 )}
               </div>
