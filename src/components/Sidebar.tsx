@@ -28,7 +28,7 @@ export default function Sidebar() {
             </h3>
           </a>
           <p className="t-secondary text-sm">{session?.user?.email}</p>
-          <p className="t-secondary mt-2 text-sm italic">
+          <p className="t-secondary mt-2 bg-red-500 px-2 text-sm font-bold italic text-white">
             This site is a CLONE only
           </p>
         </div>

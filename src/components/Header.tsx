@@ -61,6 +61,10 @@ export default function Header() {
           </div>
         </div>
 
+        <span className="bg-red-500 px-4 text-sm font-bold italic tracking-wider text-white">
+          CLONED SITE
+        </span>
+
         {/* Right */}
         <div className="flex items-center space-x-6">
           <HeaderLink Icon={MdHome} feed active>

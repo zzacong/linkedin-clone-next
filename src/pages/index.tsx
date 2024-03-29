@@ -30,6 +30,10 @@ export default function Home() {
             <Image src={linkedin_logo} alt="LinkedIn logo" />
           </Link>
 
+          <span className="bg-red-500 px-4 text-sm font-bold text-white">
+            CLONED SITE. NOT REAL
+          </span>
+
           <div className="flex items-center divide-gray-300 sm:divide-x">
             <div className="hidden space-x-8 pr-4 sm:flex">
               {/* Header links */}

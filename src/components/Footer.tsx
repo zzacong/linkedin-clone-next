@@ -64,7 +64,9 @@ export default function Footer() {
         <p className="ml-2 text-xs">LinkedIn Clone © 2022</p>
       </div>
       <div className="pt-4">
-        <p className="text-center text-sm">NOTE: This is a CLONE only.</p>
+        <p className="bg-red-500 px-2 text-center text-sm font-bold text-white">
+          NOTE: This is a CLONE only.
+        </p>
       </div>
     </footer>
   )
