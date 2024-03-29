@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>LinkedIn: Log In or Sign Up | Next</title>
+        <title>LinkedIn Clone: Log In or Sign Up | Next</title>
       </Head>
 
       <header>
